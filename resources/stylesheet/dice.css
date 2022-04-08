@@ -1,0 +1,79 @@
+::-webkit-scrollbar{
+	width: .5em;
+	background: #1F1B24;
+}
+::-webkit-scrollbar-track{
+	border-radius: 100vw;
+	margin-block: .5em;
+}
+::-webkit-scrollbar-thumb{
+	background: #00E090;
+	border-radius: 100vw;
+}
+::-webkit-scrollbar-thumb:hover{
+	background: #3E8ED0;
+}
+::-webkit-scrollbar-thumb:active{
+  	background: #7A9AB9;
+}
+
+
+body {
+	background: #1F1B24;
+}
+
+.container {
+	  display: grid;
+	  left:auto;
+	  grid-template-columns: auto;
+}
+
+.BodyContainer {
+	display: grid | inline-grid;
+}
+.UnderFormContainer {
+	/*display: grid | inline-grid;*/
+	width: 100%;
+	height: 150px;
+	/*background: red;*/
+}
+
+.UnderForm {
+	position:	relative;
+	/*display: 	inline;*/
+}
+
+.UnderFormForm {
+	height: 90px;
+	width: 	20%;
+	left:	1%;
+	top:    8px;
+}
+
+.UnderFormCalc {
+	height:	90px;
+	width:	150px;
+	right:	10%;
+	border-radius:	3px;
+}
+
+.TableContainer {
+	width: 1500px;
+	/*width: 150%;*/
+	/*left: -50px;*/
+}
+
+.test {
+    height:225px;
+    width:90%;
+    left:-5%;
+}
+
+td,th {
+	font-size:1.1em;
+}
+
+table {
+	width:80%;
+}
+

@@ -1,0 +1,12 @@
+# Ignore folders
+test/
+cgi/
+__pycache__/
+
+# Ignore extensions
+*.tmp
+*.bak
+
+# Ignore files
+data.txt
+conf.py
