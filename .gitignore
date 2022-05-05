@@ -2,6 +2,7 @@
 test/
 cgi/
 __pycache__/
+.idea/
 
 # Ignore extensions
 *.tmp
