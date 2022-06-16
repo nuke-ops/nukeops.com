@@ -1,3 +1,5 @@
+
+
 ::-webkit-scrollbar{
 	width: .5em;
 	background: #1F1B24;
@@ -17,63 +19,38 @@
   	background: #7A9AB9;
 }
 
-
 body {
 	background: #1F1B24;
+	font-size: 80%;
 }
 
 .container {
-	  display: grid;
-	  left:auto;
-	  grid-template-columns: auto;
-}
-
-.BodyContainer {
-	display: grid | inline-grid;
-}
-.UnderFormContainer {
-	/*display: grid | inline-grid;*/
-	width: 100%;
-	height: 150px;
-	/*background: red;*/
-}
-
-.UnderForm {
-	position:	relative;
-	/*display: 	inline;*/
-}
-
-.UnderFormForm {
-	height: 90px;
-	width: 	20%;
-	left:	1%;
-	top:    8px;
-}
-
-.UnderFormCalc {
-	height:	90px;
-	width:	150px;
-	right:	10%;
-	border-radius:	3px;
-}
-
-.TableContainer {
-	width: 1500px;
-	/*width: 150%;*/
-	/*left: -50px;*/
-}
-
-.test {
-    height:225px;
-    width:90%;
-    left:-5%;
-}
-
-td,th {
-	font-size:1.1em;
-}
-
-table {
+	display: grid;
+	grid-template-columns: 1.5fr 0.5fr;
+	grid-template-rows: 0.5fr 4.5fr;
+	gap: 5px 5px;
+	grid-auto-flow: row;
+	left: -10%;
+	position:relative;
 	width:80%;
+	margin: auto;
+}
+.Top { grid-area: 1 / 1 / 2 / 3; }
+.Middle { grid-area: 2 / 1 / 3 / 2; }
+.Right { grid-area: 2 / 2 / 3 / 3; }
+.Top-right { grid-area: 1 / 2 / 2 / 3; }
+.Bottom-right { grid-area: 3 / 2 / 4 / 3; }
+.Bottom { grid-area: 3 / 1 / 4 / 2; }
+
+#json_table, #table_div {
+    width: 100%;
+    margin-top: 5%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
+.clearButton {
+	position:absolute;
+	bottom: 3%;
+	right: -18%;
+}
