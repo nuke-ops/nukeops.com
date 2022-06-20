@@ -60,15 +60,15 @@ async function generate_table(json){
                                 +"<th>Name</th>"
                                 +"<th>Dice</th>"
                                 +"<th>Time</th>"
-                                +"<th>Sum</th>"
                                 +"<th>threw</th>"
+                                +"<th>Sum</th>"
                                 +"</tr>"
         const rows = `<tr>`
                     +`<td> ${name} </td>`
                     +`<td> ${dice}d${sides} </td>`
                     +`<td> ${date} </td>`
-                    +`<td> ${sum} </td>`
                     +`<td> ${threw} </td>`
+                    +`<td> ${sum} </td>`
                     +`</tr>`;
 
         //json_table.innerHTML += "<table style='width:30%'>" + table_headers + rows + "</table>";
