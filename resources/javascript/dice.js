@@ -18,7 +18,7 @@ function deleteAllCookies() {
     console.log("clicked");
 };
 
-$(function() {
+$(function() { // Save cookies
         let cookie = document.cookie.split("=")
         if (cookie[1]){
             document.getElementById("name").value = cookie[1];}
@@ -35,7 +35,7 @@ $(function() {
         if (cookie[7]){
             document.getElementById("cha").value = cookie[7];}
 });
-console.log(document.cookie)
+console.log(document.cookie) // debug, remove later
 
 function buttonLoading(buttonClass){
     document.getElementById(buttonClass).classList.add("is-loading");
@@ -43,6 +43,7 @@ function buttonLoading(buttonClass){
 function stopLoading(buttonClass){
     document.getElementById(buttonClass).classList.remove("is-loading");
 }
+
 
 async function generate_table(json){
     $("#json_table").html("");
@@ -55,7 +56,6 @@ async function generate_table(json){
         const sum = x["sum"];
         const threw = x["throw_results"];
 
-
         const table_headers = "<tr>"
                                 +"<th>Name</th>"
                                 +"<th>Dice</th>"
@@ -64,10 +64,10 @@ async function generate_table(json){
                                 +"<th>threw</th>"
                                 +"</tr>"
         const rows = `<tr>`
-                    +`<td> ${name} </td>` // name
-                    +`<td> ${dice}d${sides} </td>` // dice d sides
-                    +`<td> ${date} </td>` // date
-                    +`<td> ${sum} </td>` // sum
+                    +`<td> ${name} </td>`
+                    +`<td> ${dice}d${sides} </td>`
+                    +`<td> ${date} </td>`
+                    +`<td> ${sum} </td>`
                     +`<td> ${threw} </td>`
                     +`</tr>`;
 
@@ -79,16 +79,15 @@ async function generate_table(json){
 
 
 function dice_form(){
-
     buttonLoading("formSubmit"); // start loading animation
 
-    const form = document.getElementById('dice_form');
-    let errors = document.getElementById('errors');
+    const form = document.getElementById("dice_form");
+    let errors = document.getElementById("errors");
 
     // form values
-    let name = form.elements['name'].value;
-    let dice = form.elements['dice'].value;
-    let sides = form.elements['sides'].value;
+    let name = form.elements["name"].value;
+    let dice = form.elements["dice"].value;
+    let sides = form.elements["sides"].value;
 
     // Cookies
     let cookie_name = document.cookie = "username="+name;
