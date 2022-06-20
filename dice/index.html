@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html> 
+<head>
+    <link rel="icon" type="image/x-icon" href="/resources/images/nstrat.ico">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
+        <script src="/resources/javascript/dice.js"></script>
+        <script src="/resources/javascript/DiceClient.js"></script>
+        <script src="/resources/javascript/math.js"></script>
+    <link rel="stylesheet" href="/resources/stylesheet/bulma.css">
+        <link rel="stylesheet" href="/resources/stylesheet/dice.css">
+        
+</head>
+
+<body>
+    <div class="container">
+
+        <!-- TOP LEFT BOX -->
+        <div class="Top-left box">
+            <form method="post" id="dice_form" onSubmit="return false;">
+                <div class="field is-horizontal">
+                    <input id="name"  class="input is-primary" type="text"   placeholder="Name">
+
+                    <button id="formSubmit" class="button is-primary" type="submit" onclick="dice_form();setCookies();getCookies();">enter</button>
+                </div>
+
+                <div class="field is-horizontal">
+                    <input id="dice"  class="input is-primary" type="number" placeholder="Dice"  value="1"  style="width: 50%;">
+                    <input id="sides" class="input is-primary" type="number" placeholder="Sides" value="20" style="width: 50%;">
+
+                </div>
+            </form>
+            <h1 id="errors" class="has-text-weight-bold is-family-sans-serif"></h1> <!-- print here errors, or something -->
+        </div>
+
+        <!-- TOP RIGHT BOX -->
+        <div class="Top-right box">
+            <form       id="calculator_form" method="post" onSubmit="return false;">
+                <input  id="calculator_input"  class="input is-primary" type="text" placeholder="function">
+                <button id="calculator_button" class="button is-primary" onclick="calc();">Calculate</button>
+            </form>
+        </div>
+
+        <!-- TOP BOX -->
+        <div class="Top box">
+
+        </div>
+    
+        <!-- BOTTOM BOX -->
+        <div class="Bottom box">
+        </div>
+        
+        <!-- BOTTOM RIGHT BOX -->
+        <div class="Bottom-right box">
+            <div>
+                <script>
+                    function ClassChange(){
+                        document.getElementById("clearButton").className = "button is-danger is-medium is-fullwidth";
+                    }
+                    function RevertClassChange(){
+                        document.getElementById("clearButton").className = "button is-dark is-medium is-fullwidth";
+                    }
+                </script>
+                <button id="clearButton" class="button is-dark is-medium is-fullwidth" onclick="deleteAllCookies();" onmouseover="ClassChange();" onmouseleave="RevertClassChange();">Clear cookies</button>
+            </div>
+        </div>
+
+        <!-- RIGHT BOX -->
+        <div class="Right box">
+            <h1 class="is-size-3 has-text-weight-bold is-family-sans-serif">Modifiers</h1>
+            <form id="modForm" method="post" onSubmit="return false;">
+                <input type="radio" checked name="mod">None<br/>
+
+                <input id="cus_radio" type="radio" name="mod">Custom
+                    <input id="cus_input"  class="input is-primary" type="number" placeholder="Custom">
+                <input id="str_radio" type="radio" name="mod">Str
+                    <input id="str_input"  class="input is-primary" type="number" placeholder="Strength">
+                <input id="dex_radio" type="radio" name="mod">Dex
+                    <input id="dex_input"  class="input is-primary" type="number" placeholder="Dexterity">
+                <input id="con_radio" type="radio" name="mod">Con
+                    <input id="con_input"  class="input is-primary" type="number" placeholder="Constitution">
+                <input id="int_radio" type="radio" name="mod">Int
+                    <input id="int_input"  class="input is-primary" type="number" placeholder="Intelligence">
+                <input id="wis_radio" type="radio" name="mod">Wis
+                    <input id="wis_input"  class="input is-primary" type="number" placeholder="Wisdom">
+                <input id="cha_radio" type="radio" name="mod">Cha
+                    <input id="cha_input"  class="input is-primary" type="number" placeholder="Charisma">
+                <br/><br/>
+                <button type="submit" class="button is-info is-fullwidth" onclick="setCookies();getCookies();">Save</button>
+            </form>
+        </div>
+
+        <!-- MIDDLE -->
+        <div class="Middle box" style="margin-bottom:10px;margin-top:-10px;">
+            <div id="table_div">
+                <table id="json_table" class="table is-striped is-narrow is-hoverable is-fullwidth" style="table-layout:fixed;word-wrap:break-word";">
+                    <!-- here js generated table from json -->
+                </table>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

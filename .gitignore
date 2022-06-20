@@ -11,3 +11,4 @@ __pycache__/
 # Ignore files
 data.txt
 conf.py
+dice/rolls.json

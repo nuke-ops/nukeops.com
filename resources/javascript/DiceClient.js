@@ -8,27 +8,26 @@
  *
  * @param timestamp
  */
-function getContent(timestamp)
-{
+ function getContent(timestamp){
     var queryString = {'timestamp' : timestamp};
 
     $.ajax(
         {
             type: 'GET',
-            url: '/resources/javascript/DiceServer.php',
+            url: '/resources/php/DiceServer.php',
             data: queryString,
             success: function(data){
-                // put result data into "obj"
-                var obj = jQuery.parseJSON(data);
-                // put the data_from_file into #response
-                $('#response').html(obj.data_from_file);
+                
+                var obj = jQuery.parseJSON(data); // put result data into "obj"
+                //$('#json_table').html(obj.data_from_file); // put the data_from_file into #response
+                
+                generate_table(JSON.parse(obj.data_from_file));
                 // call the function again, this time with the timestamp we just got from server.php
                 getContent(obj.timestamp);
             }
         }
     );
 }
-
 // initialize jQuery
 $(function() {
     getContent();

@@ -1,10 +1,11 @@
+
 ::-webkit-scrollbar{
-	width: .5em;
+	width: 0.5em;
 	background: #1F1B24;
 }
 ::-webkit-scrollbar-track{
 	border-radius: 100vw;
-	margin-block: .5em;
+	margin-block: 0.5em;
 }
 ::-webkit-scrollbar-thumb{
 	background: #00E090;
@@ -17,63 +18,24 @@
   	background: #7A9AB9;
 }
 
-
 body {
 	background: #1F1B24;
+	margin-top: 10px !important;
 }
 
 .container {
-	  display: grid;
-	  left:auto;
-	  grid-template-columns: auto;
+	display: grid;
+	grid-auto-columns: 1fr;
+	gap: 0px 1%;
+	grid-template-areas:
+	  "Top-left Top Top-right"
+	  "Middle Middle Right"
+	  "Bottom Bottom Bottom-right";
 }
-
-.BodyContainer {
-	display: grid | inline-grid;
-}
-.UnderFormContainer {
-	/*display: grid | inline-grid;*/
-	width: 100%;
-	height: 150px;
-	/*background: red;*/
-}
-
-.UnderForm {
-	position:	relative;
-	/*display: 	inline;*/
-}
-
-.UnderFormForm {
-	height: 90px;
-	width: 	20%;
-	left:	1%;
-	top:    8px;
-}
-
-.UnderFormCalc {
-	height:	90px;
-	width:	150px;
-	right:	10%;
-	border-radius:	3px;
-}
-
-.TableContainer {
-	width: 1500px;
-	/*width: 150%;*/
-	/*left: -50px;*/
-}
-
-.test {
-    height:225px;
-    width:90%;
-    left:-5%;
-}
-
-td,th {
-	font-size:1.1em;
-}
-
-table {
-	width:80%;
-}
-
+.Top-left { grid-area: Top-left; }
+.Top-right { grid-area: Top-right; }
+.Top { grid-area: Top; }
+.Bottom { grid-area: Bottom; }
+.Bottom-right { grid-area: Bottom-right; }
+.Middle { grid-area: Middle; }
+.Right { grid-area: Right; }
