@@ -14,66 +14,91 @@
 <body>
     <div class="container">
 
-        <div class="Top, box">
+        <!-- TOP LEFT BOX -->
+        <div class="Top-left box">
             <form method="post" id="dice_form" onSubmit="return false;">
-                <div class="field is-horizontal" style="width: 50%;">
+                <div class="field is-horizontal" style="width: 60%;">
                     <input id="name"  class="input is-primary" type="text"   placeholder="Name">
 
                     <button id="formSubmit" class="button is-primary" type="submit" onclick="dice_form();">enter</button>
                 </div>
 
-                <div class="field is-horizontal" style="width: 60%;">
-                    <input id="dice"  class="input is-primary" type="number" placeholder="Dice"  value="1"  style="width: 15%;">
-                    <input id="sides" class="input is-primary" type="number" placeholder="Sides" value="20" style="width: 15%;">
+                <div class="field is-horizontal">
+                    <input id="dice"  class="input is-primary" type="number" placeholder="Dice"  value="1"  style="width: 30%;">
+                    <input id="sides" class="input is-primary" type="number" placeholder="Sides" value="20" style="width: 30%;">
 
                 </div>
             </form>
-            <a id="errors"></a><br/> <!-- here print errors, or something -->
+            <a id="errors"></a><br/> <!-- print here errors, or something -->
         </div>
 
-        <div class="Middle, box" style="position:relative;top:-20px;height: 100%; width: 100%;">
+        <!-- TOP RIGHT BOX -->
+        <div class="Top-right box">
+            <form       id="calculator_form" method="post" onSubmit="return false;">
+                <input  id="calculator_input"  class="input is-primary" type="text" placeholder="function">
+                <button id="calculator_button" class="button is-primary" onclick="calc();">Calculate</button>
+            </form>
+        </div>
+
+        <!-- TOP BOX -->
+        <div class="Top box">
+
+        </div>
+    
+        <!-- BOTTOM BOX -->
+        <div class="Bottom box">
+        </div>
+        
+        <!-- BOTTOM RIGHT BOX -->
+        <div class="Bottom-right box">
+            <div>
+                <script>
+                    function ClassChange(){
+                        document.getElementById("clearButton").className = "button is-danger is-medium is-fullwidth";
+                    }
+                    function RevertClassChange(){
+                        document.getElementById("clearButton").className = "button is-dark is-medium is-fullwidth";
+                    }
+                </script>
+                <button id="clearButton" class="button is-dark is-medium is-fullwidth" onclick="deleteAllCookies();" onmouseover="ClassChange();" onmouseleave="RevertClassChange();">Clear cookies</button>
+            </div>
+        </div>
+
+        <!-- RIGHT BOX -->
+        <div class="Right box">
+            <a>Modifiers - WIP</a><br/>
+            <form method="post" onSubmit="return false;">
+                <input type="radio" checked>None<br/>
+
+                <input type="radio">Custom
+                    <input id="cus"  class="input is-primary" type="number" placeholder="Custom">
+                <input type="radio">Str
+                    <input id="str"  class="input is-primary" type="number" placeholder="Strength">
+                <input type="radio">Dex
+                    <input id="dex"  class="input is-primary" type="number" placeholder="Dexterity">
+                <input type="radio">Con
+                    <input id="con"  class="input is-primary" type="number" placeholder="Constitution">
+                <input type="radio">Int
+                    <input id="int"  class="input is-primary" type="number" placeholder="Intelligence">
+                <input type="radio">Wis
+                    <input id="wis"  class="input is-primary" type="number" placeholder="Wisdom">
+                <input type="radio">Cha
+                    <input id="cha"  class="input is-primary" type="number" placeholder="Charisma">
+                <br/><br/>
+                <button type="submit" class="button is-info is-fullwidth">Save</button>
+            </form>
+        </div>
+
+        <!-- MIDDLE -->
+        <div class="Middle box">
             <div id="table_div">
                 <table id="json_table" class="table is-striped is-narrow is-hoverable is-fullwidth">
-                    <!-- here js pastes json -->
+                    <!-- here js generated table from json -->
                 </table>
             </div>
         </div>
 
-        <div class="Right, box" style="width: 200%;">
-            <a>Modifiers - WIP</a><br/>
-            <input type="radio" name="mod" checked>None<br/>
-            <input type="radio" name="mod">Custom
-            <input id="cus"  class="input is-primary" type="number" placeholder="Custom">
-            <input type="radio" name="mod">Str
-            <input id="str"  class="input is-primary" type="number" placeholder="Strength">
-            <input type="radio" name="mod">Dex
-            <input id="dex"  class="input is-primary" type="number" placeholder="Dexterity">
-            <input type="radio" name="mod">Con
-            <input id="con"  class="input is-primary" type="number" placeholder="Constitution">
-            <input type="radio" name="mod">Int
-            <input id="con"  class="input is-primary" type="number" placeholder="intelligence">
-            <input type="radio" name="mod">Wis
-            <input id="wis"  class="input is-primary" type="number" placeholder="Wisdom">
-            <input type="radio" name="mod">Cha
-            <input id="con"  class="input is-primary" type="number" placeholder="Charisma">
-        </div>
 
-        <div class="Top-right box" style="width: 200%;height: 100%;">
-            <form       id="calculator_form" method="post" onSubmit="return false;">
-                <input  id="calculator_input" class="input is-primary" type="text" placeholder="function">
-                <button                       class="button is-primary" style="width: 100%;" onclick="calc();">Calculate</button>
-            </form>
-        </div>
-
-        <div class="Bottom-right">
-            <div>
-                <button class="clearButton" onclick="clear_chache();">Clear cookies</button>
-            </div>
-        </div>
-
-        <div class="Bottom">
-
-        </div>
 
     </div>
 

@@ -1,15 +1,48 @@
-function clear_chache(){
-    if (document.cookie != ""){
-        document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    } 
-}
-$(function() {
-    if (document.cookie != ""){
-        let name = document.cookie.split("=")
-        document.getElementById("name").value = name[1];
+function deleteAllCookies() {
+    buttonLoading("clearButton");
+    var cookies = document.cookie.split("; ");
+    for (var c = 0; c < cookies.length; c++) {
+        var d = window.location.hostname.split(".");
+        while (d.length > 0) {
+            var cookieBase = encodeURIComponent(cookies[c].split(";")[0].split("=")[0]) + '=; expires=Thu, 01-Jan-1970 00:00:01 GMT; domain=' + d.join('.') + ' ;path=';
+            var p = location.pathname.split('/');
+            document.cookie = cookieBase + '/';
+            while (p.length > 0) {
+                document.cookie = cookieBase + p.join('/');
+                p.pop();
+            };
+            d.shift();
+        }
     }
-});
+    stopLoading("clearButton");
+    console.log("clicked");
+};
 
+$(function() {
+        let cookie = document.cookie.split("=")
+        if (cookie[1]){
+            document.getElementById("name").value = cookie[1];}
+        if (cookie[2]){
+            document.getElementById("str").value = cookie[2];}
+        if (cookie[3]){
+            document.getElementById("dex").value = cookie[3];}
+        if (cookie[4]){
+            document.getElementById("con").value = cookie[4];}
+        if (cookie[5]){
+            document.getElementById("int").value = cookie[5];}
+        if (cookie[6]){
+            document.getElementById("wis").value = cookie[6];}
+        if (cookie[7]){
+            document.getElementById("cha").value = cookie[7];}
+});
+console.log(document.cookie)
+
+function buttonLoading(buttonClass){
+    document.getElementById(buttonClass).classList.add("is-loading");
+}
+function stopLoading(buttonClass){
+    document.getElementById(buttonClass).classList.remove("is-loading");
+}
 
 async function generate_table(json){
     $("#json_table").html("");
@@ -41,14 +74,13 @@ async function generate_table(json){
         //json_table.innerHTML += "<table style='width:30%'>" + table_headers + rows + "</table>";
         $("#json_table").append(table_headers + rows);
     }
-    document.getElementById("formSubmit").classList.remove("is-loading") // change icon of button to normal if there was loading
+    stopLoading("formSubmit"); // stop loading animation
 }
 
 
-// form.addEventListener('submit', (event) => {
 function dice_form(){
 
-    document.getElementById("formSubmit").classList.add("is-loading") // change icon of button to loading
+    buttonLoading("formSubmit"); // start loading animation
 
     const form = document.getElementById('dice_form');
     let errors = document.getElementById('errors');
@@ -71,27 +103,33 @@ function dice_form(){
               + currentdate.getSeconds();
 
     // Error handlers
+        let Error;
         // no input
         if(!dice || !sides || !name){
             errors.innerHTML = "Error: No input specified";
+            Error = 1;
             return;
         } else {errors.innerHTML = "";}
         // Illegal characters
         if(!alphanumeric(name)){
             errors.innerHTML = "Error: Illegal characters in name";
+            Error = 1;
             return;
         }
         // Too big numbers
         if(dice > 50 || sides > 100){
             errors.innerHTML = "Error: Max amount of dice: 50"
                                 +" | Max amount of sides: 100";
+            Error = 1;
             return;
         }
         // Negative input
         if(dice < 1 || sides < 1){
             errors.innerHTML = "Error: There must be at leastn one dice with one side"
+            Error = 1;
             return;
         }
+        if(Error){stopLoading("formSubmit")}
 
     // roll
     let throw_results = [];
@@ -125,12 +163,14 @@ function alphanumeric(inputtxt){
 }
 
 function calc(){
+    buttonLoading("calculator_button");
     let input = document.getElementById("calculator_input").value;
     if (input.indexOf(',') > -1){
         input = input.replace(",",".");
     }
     let output = math.evaluate(input)
-    $('input').attr('placeholder',output);
+    $('#calculator_input').attr('placeholder',output);
     document.getElementById("calculator_input").value = "";
+    stopLoading("calculator_button");
 }
 
