@@ -5,6 +5,7 @@
         <script src="/resources/javascript/dice.js"></script>
         <script src="/resources/javascript/DiceClient.js"></script>
         <script src="/resources/javascript/math.js"></script>
+    <link rel="icon" type="image/x-icon" href="/resources/images/nstrat.ico">
     <link rel="stylesheet" href="/resources/stylesheet/bulma.css">
         <link rel="stylesheet" href="/resources/stylesheet/dice.css">
         
@@ -16,15 +17,15 @@
         <!-- TOP LEFT BOX -->
         <div class="Top-left box">
             <form method="post" id="dice_form" onSubmit="return false;">
-                <div class="field is-horizontal" style="width: 60%;">
+                <div class="field is-horizontal">
                     <input id="name"  class="input is-primary" type="text"   placeholder="Name">
 
                     <button id="formSubmit" class="button is-primary" type="submit" onclick="dice_form();">enter</button>
                 </div>
 
                 <div class="field is-horizontal">
-                    <input id="dice"  class="input is-primary" type="number" placeholder="Dice"  value="1"  style="width: 30%;">
-                    <input id="sides" class="input is-primary" type="number" placeholder="Sides" value="20" style="width: 30%;">
+                    <input id="dice"  class="input is-primary" type="number" placeholder="Dice"  value="1"  style="width: 50%;">
+                    <input id="sides" class="input is-primary" type="number" placeholder="Sides" value="20" style="width: 50%;">
 
                 </div>
             </form>
@@ -66,30 +67,30 @@
         <!-- RIGHT BOX -->
         <div class="Right box">
             <a>Modifiers - WIP</a><br/>
-            <form method="post" onSubmit="return false;">
-                <input type="radio" checked>None<br/>
+            <form id="modForm" method="post" onSubmit="return false;">
+                <input type="radio" checked name="mod">None<br/>
 
-                <input type="radio">Custom
-                    <input id="cus"  class="input is-primary" type="number" placeholder="Custom">
-                <input type="radio">Str
-                    <input id="str"  class="input is-primary" type="number" placeholder="Strength">
-                <input type="radio">Dex
-                    <input id="dex"  class="input is-primary" type="number" placeholder="Dexterity">
-                <input type="radio">Con
-                    <input id="con"  class="input is-primary" type="number" placeholder="Constitution">
-                <input type="radio">Int
-                    <input id="int"  class="input is-primary" type="number" placeholder="Intelligence">
-                <input type="radio">Wis
-                    <input id="wis"  class="input is-primary" type="number" placeholder="Wisdom">
-                <input type="radio">Cha
-                    <input id="cha"  class="input is-primary" type="number" placeholder="Charisma">
+                <input id="cus_radio" type="radio" name="mod">Custom
+                    <input id="cus_input"  class="input is-primary" type="number" placeholder="Custom">
+                <input id="str_radio" type="radio" name="mod">Str
+                    <input id="str_input"  class="input is-primary" type="number" placeholder="Strength">
+                <input id="dex_radio" type="radio" name="mod">Dex
+                    <input id="dex_input"  class="input is-primary" type="number" placeholder="Dexterity">
+                <input id="con_radio" type="radio" name="mod">Con
+                    <input id="con_input"  class="input is-primary" type="number" placeholder="Constitution">
+                <input id="int_radio" type="radio" name="mod">Int
+                    <input id="int_input"  class="input is-primary" type="number" placeholder="Intelligence">
+                <input id="wis_radio" type="radio" name="mod">Wis
+                    <input id="wis_input"  class="input is-primary" type="number" placeholder="Wisdom">
+                <input id="cha_radio" type="radio" name="mod">Cha
+                    <input id="cha_input"  class="input is-primary" type="number" placeholder="Charisma">
                 <br/><br/>
                 <button type="submit" class="button is-info is-fullwidth">Save</button>
             </form>
         </div>
 
         <!-- MIDDLE -->
-        <div class="Middle box">
+        <div class="Middle box" style="margin-bottom:10px;margin-top:-10px;">
             <div id="table_div">
                 <table id="json_table" class="table is-striped is-narrow is-hoverable is-fullwidth">
                     <!-- here js generated table from json -->

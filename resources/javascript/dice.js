@@ -20,28 +20,33 @@ function deleteAllCookies() {
 
 $(function() { // Save cookies
         let cookie = document.cookie.split("=")
+        
         if (cookie[1]){
-            document.getElementById("name").value = cookie[1];}
+            $("#name").val(cookie[1]);}
         if (cookie[2]){
-            document.getElementById("str").value = cookie[2];}
+            $("#str_input").val(cookie[2]);}
         if (cookie[3]){
-            document.getElementById("dex").value = cookie[3];}
+            $("#dex_input").val(cookie[3]);}
         if (cookie[4]){
-            document.getElementById("con").value = cookie[4];}
+            $("#con_input").val(cookie[4]);}
         if (cookie[5]){
-            document.getElementById("int").value = cookie[5];}
+            $("#int_input").val(cookie[5]);}
         if (cookie[6]){
-            document.getElementById("wis").value = cookie[6];}
+            $("#wis_input").val(cookie[6]);}
         if (cookie[7]){
-            document.getElementById("cha").value = cookie[7];}
+            $("#cha_input").val(cookie[7]);}
 });
 console.log(document.cookie) // debug, remove later
 
 function buttonLoading(buttonClass){
-    document.getElementById(buttonClass).classList.add("is-loading");
+    let button = document.getElementById(buttonClass);
+    button.classList.add("is-loading");
+    button.disabled = true;
 }
 function stopLoading(buttonClass){
-    document.getElementById(buttonClass).classList.remove("is-loading");
+    let button = document.getElementById(buttonClass);
+    button.classList.remove("is-loading");
+    button.disabled = false;
 }
 
 
@@ -53,25 +58,26 @@ async function generate_table(json){
         const dice = x["dice"];
         const sides = x["sides"];
         const date = x["date"];
-        const sum = x["sum"];
         const threw = x["throw_results"];
+        const mod = x["modifier"];
+        const sum = x["sum"];
 
-        const table_headers = "<tr>"
+        let table_headers    =   "<tr>"
                                 +"<th>Name</th>"
                                 +"<th>Dice</th>"
                                 +"<th>Time</th>"
                                 +"<th>threw</th>"
+                                +"<th>modifier</th>"
                                 +"<th>Sum</th>"
                                 +"</tr>"
-        const rows = `<tr>`
+        let rows  =  `<tr>`
                     +`<td> ${name} </td>`
                     +`<td> ${dice}d${sides} </td>`
                     +`<td> ${date} </td>`
                     +`<td> ${threw} </td>`
+                    +`<td> ${mod} </td>`
                     +`<td> ${sum} </td>`
                     +`</tr>`;
-
-        //json_table.innerHTML += "<table style='width:30%'>" + table_headers + rows + "</table>";
         $("#json_table").append(table_headers + rows);
     }
     stopLoading("formSubmit"); // stop loading animation
@@ -80,7 +86,6 @@ async function generate_table(json){
 
 function dice_form(){
     buttonLoading("formSubmit"); // start loading animation
-
     const form = document.getElementById("dice_form");
     let errors = document.getElementById("errors");
 
@@ -102,33 +107,62 @@ function dice_form(){
               + currentdate.getSeconds();
 
     // Error handlers
-        let Error;
         // no input
         if(!dice || !sides || !name){
             errors.innerHTML = "Error: No input specified";
-            Error = 1;
+            stopLoading("formSubmit");
             return;
         } else {errors.innerHTML = "";}
         // Illegal characters
         if(!alphanumeric(name)){
             errors.innerHTML = "Error: Illegal characters in name";
-            Error = 1;
+            stopLoading("formSubmit");
             return;
         }
         // Too big numbers
         if(dice > 50 || sides > 100){
             errors.innerHTML = "Error: Max amount of dice: 50"
                                 +" | Max amount of sides: 100";
-            Error = 1;
+            stopLoading("formSubmit");
             return;
         }
         // Negative input
         if(dice < 1 || sides < 1){
             errors.innerHTML = "Error: There must be at leastn one dice with one side"
-            Error = 1;
+            stopLoading("formSubmit");
             return;
         }
-        if(Error){stopLoading("formSubmit")}
+
+    // check if there's modifier (kill me)
+    let mod = 0;
+    let modifier = "";
+    if($("input[id='cus_radio']:checked").val()){mod = $("#cus_input").val();
+                                                 modifier = "cus("; if(mod > 0){modifier += "+"};
+                                                 modifier += mod + ")"};
+                                                 
+    if($("input[id='str_radio']:checked").val()){mod = $("#str_input").val();
+                                                 modifier = "str("; if(mod > 0){modifier += "+"};
+                                                 modifier += mod + ")";}
+                                                 
+    if($("input[id='dex_radio']:checked").val()){mod = $("#dex_input").val();
+                                                 modifier = "dex("; if(mod > 0){modifier += "+"};
+                                                 modifier += mod + ")";}
+                                                 
+    if($("input[id='con_radio']:checked").val()){mod = $("#con_input").val();
+                                                 modifier = "con("; if(mod > 0){modifier += "+"};
+                                                 modifier += mod + ")";}
+                                                 
+    if($("input[id='int_radio']:checked").val()){mod = $("#int_input").val();
+                                                 modifier = "int("; if(mod > 0){modifier += "+"};
+                                                 modifier += mod + ")";}
+                                                 
+    if($("input[id='wis_radio']:checked").val()){mod = $("#wis_input").val();
+                                                 modifier = "wis("; if(mod > 0){modifier += "+"};
+                                                 modifier += mod + ")";}
+                                                 
+    if($("input[id='cha_radio']:checked").val()){mod = $("#cha_input").val();
+                                                 modifier = "cha("; if(mod > 0){modifier += "+"};
+                                                 modifier += mod + ")";}
 
     // roll
     let throw_results = [];
@@ -140,16 +174,17 @@ function dice_form(){
     let sum = 0;
     for(const x of throw_results){
         sum += x;
-    }
+    } sum += mod*1;
 
     // send to php
     $.ajax({
         type : "POST",
         url  : "/resources/php/dice.php",
         data : { name : name, dice : dice, sides : sides,
-            throw_results : throw_results, sum : sum, date : date },
-    });
-
+                throw_results : throw_results, sum : sum, 
+                date : date, modifier : modifier}
+         },
+    );
 };
 
 function alphanumeric(inputtxt){
