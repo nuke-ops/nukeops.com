@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html> 
 <head>
+    <link rel="icon" type="image/x-icon" href="/resources/images/nstrat.ico">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
         <script src="/resources/javascript/dice.js"></script>
         <script src="/resources/javascript/DiceClient.js"></script>
         <script src="/resources/javascript/math.js"></script>
-    <link rel="icon" type="image/x-icon" href="/resources/images/nstrat.ico">
     <link rel="stylesheet" href="/resources/stylesheet/bulma.css">
         <link rel="stylesheet" href="/resources/stylesheet/dice.css">
         
@@ -20,7 +22,7 @@
                 <div class="field is-horizontal">
                     <input id="name"  class="input is-primary" type="text"   placeholder="Name">
 
-                    <button id="formSubmit" class="button is-primary" type="submit" onclick="dice_form();">enter</button>
+                    <button id="formSubmit" class="button is-primary" type="submit" onclick="dice_form();setCookies();getCookies();">enter</button>
                 </div>
 
                 <div class="field is-horizontal">
@@ -85,7 +87,7 @@
                 <input id="cha_radio" type="radio" name="mod">Cha
                     <input id="cha_input"  class="input is-primary" type="number" placeholder="Charisma">
                 <br/><br/>
-                <button type="submit" class="button is-info is-fullwidth">Save</button>
+                <button type="submit" class="button is-info is-fullwidth" onclick="setCookies();getCookies();">Save</button>
             </form>
         </div>
 

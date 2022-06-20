@@ -1,42 +1,38 @@
 function deleteAllCookies() {
     buttonLoading("clearButton");
-    var cookies = document.cookie.split("; ");
-    for (var c = 0; c < cookies.length; c++) {
-        var d = window.location.hostname.split(".");
-        while (d.length > 0) {
-            var cookieBase = encodeURIComponent(cookies[c].split(";")[0].split("=")[0]) + '=; expires=Thu, 01-Jan-1970 00:00:01 GMT; domain=' + d.join('.') + ' ;path=';
-            var p = location.pathname.split('/');
-            document.cookie = cookieBase + '/';
-            while (p.length > 0) {
-                document.cookie = cookieBase + p.join('/');
-                p.pop();
-            };
-            d.shift();
-        }
-    }
+        Cookies.remove('name');
+        Cookies.remove('cus');
+        Cookies.remove('str');
+        Cookies.remove('dex');
+        Cookies.remove('con');
+        Cookies.remove('int');
+        Cookies.remove('wis');
+        Cookies.remove('cha');
     stopLoading("clearButton");
-    console.log("clicked");
 };
 
-$(function() { // Save cookies
-        let cookie = document.cookie.split("=")
-        
-        if (cookie[1]){
-            $("#name").val(cookie[1]);}
-        if (cookie[2]){
-            $("#str_input").val(cookie[2]);}
-        if (cookie[3]){
-            $("#dex_input").val(cookie[3]);}
-        if (cookie[4]){
-            $("#con_input").val(cookie[4]);}
-        if (cookie[5]){
-            $("#int_input").val(cookie[5]);}
-        if (cookie[6]){
-            $("#wis_input").val(cookie[6]);}
-        if (cookie[7]){
-            $("#cha_input").val(cookie[7]);}
-});
+function setCookies(){
+    Cookies.set('name', $("#name").val());
+    Cookies.set('cus', $("#cus_input").val());
+    Cookies.set('str', $("#str_input").val());
+    Cookies.set('dex', $("#dex_input").val());
+    Cookies.set('con', $("#con_input").val());
+    Cookies.set('int', $("#int_input").val());
+    Cookies.set('wis', $("#wis_input").val());
+    Cookies.set('cha', $("#cha_input").val());
+};
+function getCookies(){
+    $("#name").attr("value",Cookies.get("name"));
+    $("#cus_input").attr("value",Cookies.get("cus"));
+    $("#str_input").attr("value",Cookies.get("str"));
+    $("#dex_input").attr("value",Cookies.get("dex"));
+    $("#con_input").attr("value",Cookies.get("con"));
+    $("#int_input").attr("value",Cookies.get("int"));
+    $("#wis_input").attr("value",Cookies.get("wis"));
+    $("#cha_input").attr("value",Cookies.get("cha"));
+};
 console.log(document.cookie) // debug, remove later
+$(function(){getCookies()});
 
 function buttonLoading(buttonClass){
     let button = document.getElementById(buttonClass);
@@ -95,7 +91,7 @@ function dice_form(){
     let sides = form.elements["sides"].value;
 
     // Cookies
-    let cookie_name = document.cookie = "username="+name;
+    // let cookie_name = document.cookie = "username="+name;
 
     // save current time
     let currentdate = new Date(); 
