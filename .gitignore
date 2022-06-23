@@ -12,3 +12,5 @@ __pycache__/
 data.txt
 conf.py
 dice/rolls.json
+dice/list.txt
+dice/upload/.htaccess
