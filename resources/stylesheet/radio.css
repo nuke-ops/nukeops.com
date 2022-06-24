@@ -1,11 +1,13 @@
 
 .radio-tile-group {
+    margin-top: 10px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     flex-direction: column;
 }
 .radio-tile-group .input-container {
+    left: 50px;
     position: relative;
     height: 5rem;
     width: 80%;
