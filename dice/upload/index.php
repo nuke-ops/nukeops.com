@@ -30,7 +30,7 @@
 
           <span class="file-name">
             <label for="file-upload" class="custom-file-upload">
-              <i class="fa fa-cloud-upload"></i> <h4>Upload Image</h4>
+              <i class="fa fa-cloud-upload"></i> <h4>Upload file</h4>
            </label>
           </span>
 
@@ -44,7 +44,3 @@
 
 </body>
 </html>
-
-
-
-

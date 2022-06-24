@@ -7,6 +7,7 @@
         <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
         <script src="/resources/javascript/dice.js"></script>
         <script src="/resources/javascript/DiceClient.js"></script>
+        <script src="/resources/javascript/DiceClient_mbs.js"></script>
         <script src="/resources/javascript/math.js"></script>
     <link rel="stylesheet" href="/resources/stylesheet/bulma.css">
         <link rel="stylesheet" href="/resources/stylesheet/dice.css">
@@ -18,11 +19,6 @@
 
         <!-- TOP LEFT BOX -->
         <div class="Top-left box">
-
-
-
-
-
             <form method="post" id="dice_form" onSubmit="return false;">
                 <div class="field is-horizontal has-addons">
                     <div class="control is-expanded">   <input  id="name"       class="input is-primary"  type="text"   placeholder="Name"></div>
@@ -36,7 +32,11 @@
 
                 <div>
                     <button class="button is-info is-small" onclick="set_dice(1,20);">1d20</button>
-                    <button class="button is-info is-small" onclick="set_dice(4,8);">4d8</button>
+                    <button class="button is-info is-small" onclick="set_dice(1,4);">1d4</button>
+                    <button class="button is-info is-small" onclick="set_dice(1,6);">1d6</button>
+                    <button class="button is-info is-small" onclick="set_dice(1,8);">1d8</button>
+                    <button class="button is-info is-small" onclick="set_dice(1,10);">1d10</button>
+                    <button class="button is-info is-small" onclick="set_dice(1,12);">1d12</button>
                     <button class="button is-info is-small" onclick="set_dice(1,100);">1d100</button>
                 </div>
 
@@ -48,7 +48,7 @@
         <div class="Top-right box">
             <form       id="calculator_form" method="post" onSubmit="return false;">
                 <input  id="calculator_input"  class="input is-primary" type="text" placeholder="function">
-                <button id="calculator_button" class="button is-primary" onclick="calc();">Calculate</button>
+                <button id="calculator_button" class="button is-primary is-fullwidth" onclick="calc();">Calculate</button>
             </form>
         </div>
 
@@ -59,6 +59,8 @@
     
         <!-- BOTTOM BOX -->
         <div class="Bottom box">
+            <button class="button is-primary" onclick="SpinTheWheel();">SPIN THE WHEEL</button>
+            <h4 id="wheelOfSalt"></h4>
         </div>
         
         <!-- BOTTOM RIGHT BOX -->
@@ -97,8 +99,8 @@
                 <input id="cha_radio" type="radio" name="mod">Cha
                     <input id="cha_input"  class="input is-primary" type="number" placeholder="Charisma">
                 <input id="magicbs_toggle" type="checkbox" class="toggle" onclick="magicbsToggle();"> Magic bs
-                <!-- <button id="magicbs_toggle" class="button is-primary" onclick="magicbs_toggle();">Magic bs</button> -->
                 <br/><br/>
+                <!-- button to save cookies, not sure if has sense: -->
                 <!-- <button type="submit" class="button is-info is-fullwidth" onclick="setCookies();getCookies();">Save</button> -->
             </form>
         </div>

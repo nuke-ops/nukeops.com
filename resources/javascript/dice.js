@@ -1,3 +1,5 @@
+$(function(){getCookies()});
+
 function deleteAllCookies() {
     buttonLoading("#clearButton");
         Cookies.remove('name');
@@ -10,7 +12,6 @@ function deleteAllCookies() {
         Cookies.remove('cha');
     stopLoading("#clearButton");
 };
-
 function setCookies(){
     Cookies.set('name', $("#name").val());
     Cookies.set('cus', $("#cus_input").val());
@@ -31,7 +32,7 @@ function getCookies(){
     $("#wis_input").attr("value",Cookies.get("wis"));
     $("#cha_input").attr("value",Cookies.get("cha"));
 };
-$(function(){getCookies()});
+
 
 function buttonLoading(buttonClass){
     $(buttonClass).addClass("is-loading");
@@ -201,26 +202,35 @@ function calc(){
     stopLoading("#calculator_button");
 }
 
-function magicbsToggle(){
-    if ($("#magicbs_toggle").hasClass("toggle")){
-        // disable buttons and inputs
-        $("#dice, #sides,"
-         +"#str_radio, #dex_radio, #con_radio,"
-         +"#int_radio, #wis_radio, #cha_radio").prop('disabled', true);
-        // overwrite inputs and buttons states
-        $("#non_radio").prop("checked", true);
-        set_dice(1,100);
-        // toggle button class so if check can toggle functions on every click 
-        $("#magicbs_toggle").toggleClass("toggle");
+// Maybe will use it one day, got another idea how to implement magicbs
+// function magicbsToggle(){
+//     if ($("#magicbs_toggle").hasClass("toggle")){
+//         // disable buttons and inputs
+//         $("#dice, #sides,"
+//          +"#str_radio, #dex_radio, #con_radio,"
+//          +"#int_radio, #wis_radio, #cha_radio").prop('disabled', true);
+//         // overwrite inputs and buttons states
+//         $("#non_radio").prop("checked", true);
+//         set_dice(1,100);
+//         // toggle button class so if check can toggle functions on every click 
+//         $("#magicbs_toggle").toggleClass("toggle");
+//     }
+//     else{
+//         // enable buttons and inputs
+//         $("#dice, #sides,"
+//          +"#str_radio, #dex_radio, #con_radio,"
+//          +"#int_radio, #wis_radio, #cha_radio").prop('disabled', false);
+//         // toggle button class so if check can toggle functions on every click 
+//         $("#magicbs_toggle").toggleClass("toggle");
+//     }
+// }
+
+function SpinTheWheel(){
+    $.ajax({
+        type : "GET",
+        url  : "/resources/php/roll.php",
     }
-    else{
-        // enable buttons and inputs
-        $("#dice, #sides,"
-         +"#str_radio, #dex_radio, #con_radio,"
-         +"#int_radio, #wis_radio, #cha_radio").prop('disabled', false);
-        // toggle button class so if check can toggle functions on every click 
-        $("#magicbs_toggle").toggleClass("toggle");
-    }
+    );
 }
 
 function set_dice(dice,sides){
