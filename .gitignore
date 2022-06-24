@@ -9,9 +9,7 @@ __pycache__/
 *.bak
 
 # Ignore files
-data.txt
-conf.py
-dice/rolls.json
-dice/list.txt
+dice/data/rolls.json
+dice/data/list.txt
+dice/data/mbs.txt
 dice/upload/.htaccess
-dice/mbs.txt

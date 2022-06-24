@@ -16,7 +16,7 @@
 set_time_limit(0);
 
 // where does the data come from ? In real world this would be a SQL query or something
-$data_source_file = '../../dice/mbs.txt';
+$data_source_file = '../../dice/data/mbs.txt';
 
 // main loop
 while (true) {

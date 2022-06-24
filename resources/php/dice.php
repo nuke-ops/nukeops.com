@@ -1,5 +1,5 @@
 <?php
-$rolls_json = "../../dice/rolls.json";
+$rolls_json = "../../dice/data/rolls.json";
 $entries_to_keep = 10; // Easy to configure how many you want to keep.
 
 $strJsonFileContents = file_get_contents($rolls_json);

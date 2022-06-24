@@ -1,5 +1,5 @@
 <?php
-$target_dir = "../../dice/";
+$target_dir = "../../dice/data/";
 $target_file = $target_dir . basename("list.txt");
 
 // I feel like I'm doing something dumb, perhaps one day I'll look at this and fix it

@@ -1,5 +1,5 @@
 <?php
-$target_dir = "../../dice/";
+$target_dir = "../../dice/data/";
 $target_file = $target_dir . basename("list.txt");
 $uploadOk = 1;
 $fileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
