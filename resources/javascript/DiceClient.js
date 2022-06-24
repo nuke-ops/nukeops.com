@@ -17,16 +17,30 @@
             url: '/resources/php/DiceServer.php',
             data: queryString,
             success: function(data){
-                
                 var obj = jQuery.parseJSON(data); // put result data into "obj"
-                //$('#json_table').html(obj.data_from_file); // put the data_from_file into #response
-                
+                // $('#wheelOfSalt').html(data); // put the data_from_file into #response
                 generate_table(JSON.parse(obj.data_from_file));
                 // call the function again, this time with the timestamp we just got from server.php
                 getContent(obj.timestamp);
             }
         }
-    );
+    )
+        $.ajax(
+            {
+                type: 'GET',
+                url: '/resources/php/DiceServer_mbs.php',
+                data: queryString,
+                success: function(data){
+                    
+                    var obj = jQuery.parseJSON(data); // put result data into "obj"
+                    $('#wheelOfSalt').html(obj.data_from_file); // put the data_from_file into #response
+                    
+                    // call the function again, this time with the timestamp we just got from server.php
+                    getContent(obj.timestamp);
+                }
+            }
+        )
+
 }
 // initialize jQuery
 $(function() {

@@ -182,7 +182,7 @@ function dice_form(){
 }
 
 function alphanumeric(inputtxt){
-    var letterNumber = /^[0-9a-zA-Z]+$/;
+    var letterNumber = /^[0-9a-zA-Z ]+$/;
     if(inputtxt.match(letterNumber)) {
       return true;
     } else { 
@@ -202,35 +202,26 @@ function calc(){
     stopLoading("#calculator_button");
 }
 
-// Maybe will use it one day, got another idea how to implement magicbs
-// function magicbsToggle(){
-//     if ($("#magicbs_toggle").hasClass("toggle")){
-//         // disable buttons and inputs
-//         $("#dice, #sides,"
-//          +"#str_radio, #dex_radio, #con_radio,"
-//          +"#int_radio, #wis_radio, #cha_radio").prop('disabled', true);
-//         // overwrite inputs and buttons states
-//         $("#non_radio").prop("checked", true);
-//         set_dice(1,100);
-//         // toggle button class so if check can toggle functions on every click 
-//         $("#magicbs_toggle").toggleClass("toggle");
-//     }
-//     else{
-//         // enable buttons and inputs
-//         $("#dice, #sides,"
-//          +"#str_radio, #dex_radio, #con_radio,"
-//          +"#int_radio, #wis_radio, #cha_radio").prop('disabled', false);
-//         // toggle button class so if check can toggle functions on every click 
-//         $("#magicbs_toggle").toggleClass("toggle");
-//     }
-// }
-
 function SpinTheWheel(){
+    buttonLoading("#wheelOfSalt");
+
+    const form = document.getElementById("dice_form");
+    let name = form.elements["name"].value;
+
+    if(!name){
+        $("#errors_wheelOfSalt").html("Error: No name specified");
+        stopLoading("#wheelOfSalt");
+        console.log("bs")
+        return;
+    } else {$("#errors_wheelOfSalt").html("");}
+
     $.ajax({
-        type : "GET",
+        type : "POST",
         url  : "/resources/php/roll.php",
+        data : { name : $("#name").val() }
     }
     );
+    stopLoading("#wheelOfSalt");
 }
 
 function set_dice(dice,sides){
