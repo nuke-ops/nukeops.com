@@ -1,5 +1,7 @@
+$(function(){getCookies()});
+
 function deleteAllCookies() {
-    buttonLoading("clearButton");
+    buttonLoading("#clearButton");
         Cookies.remove('name');
         Cookies.remove('cus');
         Cookies.remove('str');
@@ -8,9 +10,8 @@ function deleteAllCookies() {
         Cookies.remove('int');
         Cookies.remove('wis');
         Cookies.remove('cha');
-    stopLoading("clearButton");
+    stopLoading("#clearButton");
 };
-
 function setCookies(){
     Cookies.set('name', $("#name").val());
     Cookies.set('cus', $("#cus_input").val());
@@ -31,19 +32,16 @@ function getCookies(){
     $("#wis_input").attr("value",Cookies.get("wis"));
     $("#cha_input").attr("value",Cookies.get("cha"));
 };
-console.log(document.cookie) // debug, remove later
-$(function(){getCookies()});
+
 
 function buttonLoading(buttonClass){
-    let button = document.getElementById(buttonClass);
-    button.classList.add("is-loading");
-    button.disabled = true;
-}
+    $(buttonClass).addClass("is-loading");
+    $(buttonClass).prop('disabled', true);
+};
 function stopLoading(buttonClass){
-    let button = document.getElementById(buttonClass);
-    button.classList.remove("is-loading");
-    button.disabled = false;
-}
+    $(buttonClass).removeClass("is-loading");
+    $(buttonClass).prop('disabled', false);
+};
 
 
 async function generate_table(json){
@@ -76,12 +74,12 @@ async function generate_table(json){
                     +`</tr>`;
         $("#json_table").append(table_headers + rows);
     }
-    stopLoading("formSubmit"); // stop loading animation
+    stopLoading("#formSubmit"); // stop loading animation
 }
 
 
 function dice_form(){
-    buttonLoading("formSubmit"); // start loading animation
+    buttonLoading("#formSubmit"); // start loading animation
     const form = document.getElementById("dice_form");
     let errors = document.getElementById("errors");
 
@@ -106,26 +104,26 @@ function dice_form(){
         // no input
         if(!dice || !sides || !name){
             errors.innerHTML = "Error: No input specified";
-            stopLoading("formSubmit");
+            stopLoading("#formSubmit");
             return;
         } else {errors.innerHTML = "";}
         // Illegal characters
         if(!alphanumeric(name)){
             errors.innerHTML = "Error: Illegal characters in name";
-            stopLoading("formSubmit");
+            stopLoading("#formSubmit");
             return;
         }
         // Too big numbers
         if(dice > 50 || sides > 100){
             errors.innerHTML = "Error: Max amount of dice: 50"
                                 +" | Max amount of sides: 100";
-            stopLoading("formSubmit");
+            stopLoading("#formSubmit");
             return;
         }
         // Negative input
         if(dice < 1 || sides < 1){
             errors.innerHTML = "Error: There must be at leastn one dice with one side"
-            stopLoading("formSubmit");
+            stopLoading("#formSubmit");
             return;
         }
 
@@ -181,10 +179,10 @@ function dice_form(){
                 date : date, modifier : modifier}
          },
     );
-};
+}
 
 function alphanumeric(inputtxt){
-    var letterNumber = /^[0-9a-zA-Z]+$/;
+    var letterNumber = /^[0-9a-zA-Z ]+$/;
     if(inputtxt.match(letterNumber)) {
       return true;
     } else { 
@@ -193,7 +191,7 @@ function alphanumeric(inputtxt){
 }
 
 function calc(){
-    buttonLoading("calculator_button");
+    buttonLoading("#calculator_button");
     let input = document.getElementById("calculator_input").value;
     if (input.indexOf(',') > -1){
         input = input.replace(",",".");
@@ -201,6 +199,32 @@ function calc(){
     let output = math.evaluate(input)
     $('#calculator_input').attr('placeholder',output);
     document.getElementById("calculator_input").value = "";
-    stopLoading("calculator_button");
+    stopLoading("#calculator_button");
 }
 
+function SpinTheWheel(){
+    buttonLoading("#wheelOfSalt");
+
+    const form = document.getElementById("dice_form");
+    let name = form.elements["name"].value;
+
+    if(!name){
+        $("#errors_wheelOfSalt").html("Error: No name specified");
+        stopLoading("#wheelOfSalt");
+        console.log("bs")
+        return;
+    } else {$("#errors_wheelOfSalt").html("");}
+
+    $.ajax({
+        type : "POST",
+        url  : "/resources/php/roll.php",
+        data : { name : $("#name").val() }
+    }
+    );
+    stopLoading("#wheelOfSalt");
+}
+
+function set_dice(dice,sides){
+    $("#dice").val(dice);
+    $("#sides").val(sides);
+}
