@@ -81,7 +81,6 @@ async function generate_table(json){
 function dice_form(){
     buttonLoading("#formSubmit"); // start loading animation
     const form = document.getElementById("dice_form");
-    let errors = document.getElementById("errors");
 
     // form values
     let name = form.elements["name"].value;
@@ -101,29 +100,26 @@ function dice_form(){
               + currentdate.getSeconds();
 
     // Error handlers
-        // no input
-        if(!dice || !sides || !name){
-            errors.innerHTML = "Error: No input specified";
-            stopLoading("#formSubmit");
-            return;
-        } else {errors.innerHTML = "";}
-        // Illegal characters
-        if(!alphanumeric(name)){
-            errors.innerHTML = "Error: Illegal characters in name";
-            stopLoading("#formSubmit");
-            return;
-        }
-        // Too big numbers
-        if(dice > 50 || sides > 100){
-            errors.innerHTML = "Error: Max amount of dice: 50"
-                                +" | Max amount of sides: 100";
-            stopLoading("#formSubmit");
-            return;
-        }
-        // Negative input
-        if(dice < 1 || sides < 1){
-            errors.innerHTML = "Error: There must be at leastn one dice with one side"
-            stopLoading("#formSubmit");
+        const formErrors = new Array();
+            if(!name){ // No name
+                formErrors.push("You must enter a name");
+            } else if(name && !alphanumeric(name)){ // Illegal characters
+                formErrors.push("Illegal characters in name");
+            }
+            if(dice > 50){ // Too much dice
+                formErrors.push("Max amount of dice: 50");
+            }
+            if(sides > 100){ // Too much sides
+                formErrors.push("Max amount of sides: 100");
+            }
+            if(dice < 1 || !dice){ // Negative dice
+                formErrors.push("There must be at leas one dice");
+            }
+            if(sides < 2 || !sides){ // Negative sides
+                formErrors.push("Dice must have at least 2 sides");
+            }
+        if (formErrors.length > 0) {
+            formError(formErrors);
             return;
         }
 
@@ -188,6 +184,27 @@ function alphanumeric(inputtxt){
     } else { 
         return false; 
     }
+}
+
+function formError(errors){
+    // let output = new String;
+    let output = "";
+    for (const x of errors){
+        output += x+"<br/>";
+    }
+
+    $("#formErrorHead").addClass("message-header");
+    $("#formErrorHead").css({"margin-top": "10px"});
+    $("#formErrorHead").html("Error <button class='delete' onclick='closeError();'/>");
+    $("#formErrorBody").addClass("message-body");
+    $("#formErrorBody").html(output);
+    stopLoading("#formSubmit");
+}
+function closeError(){
+    $("#formErrorHead").removeClass("message-header");
+    $("#formErrorHead").css({"margin-top": "10px"});
+    $("#formErrorBody").removeClass("message-body");
+    $("#formErrorHead, #formErrorBody").html("");
 }
 
 function calc(){

@@ -31,18 +31,22 @@
                     <div class="control">   <input id="sides" class="input is-primary" type="number" placeholder="Sides" value="20"></div>
                 </div>
 
-                <div>
-                    <button class="button is-info is-small" onclick="set_dice(1,20);">1d20</button>
-                    <button class="button is-info is-small" onclick="set_dice(1,4);">1d4</button>
-                    <button class="button is-info is-small" onclick="set_dice(1,6);">1d6</button>
-                    <button class="button is-info is-small" onclick="set_dice(1,8);">1d8</button>
-                    <button class="button is-info is-small" onclick="set_dice(1,10);">1d10</button>
-                    <button class="button is-info is-small" onclick="set_dice(1,12);">1d12</button>
-                    <button class="button is-info is-small" onclick="set_dice(1,100);">1d100</button>
+                <div class="field has-addons">
+                    <button class="button is-link is-rounded is-small is-fullwidth" style="margin-left: 0.5%;margin-right: 0.5%;left: -3.5%;" onclick="set_dice(1,20);">1d20</button>
+                    <button class="button is-link is-rounded is-small is-fullwidth" style="margin-left: 0.5%;margin-right: 0.5%;left: -3.5%;" onclick="set_dice(1,4);">1d4</button>
+                    <button class="button is-link is-rounded is-small is-fullwidth" style="margin-left: 0.5%;margin-right: 0.5%;left: -3.5%;" onclick="set_dice(1,6);">1d6</button>
+                    <button class="button is-link is-rounded is-small is-fullwidth" style="margin-left: 0.5%;margin-right: 0.5%;left: -3.5%;" onclick="set_dice(1,8);">1d8</button>
+                    <button class="button is-link is-rounded is-small is-fullwidth" style="margin-left: 0.5%;margin-right: 0.5%;left: -3.5%;" onclick="set_dice(1,10);">1d10</button>
+                    <button class="button is-link is-rounded is-small is-fullwidth" style="margin-left: 0.5%;margin-right: 0.5%;left: -3.5%;" onclick="set_dice(1,12);">1d12</button>
+                    <button class="button is-link is-rounded is-small is-fullwidth" style="margin-left: 0.5%;margin-right: 0.5%;left: -3.5%;" onclick="set_dice(1,100);">1d100</button>
                 </div>
 
             </form>
-            <h1 id="errors" class="has-text-weight-bold is-family-sans-serif"></h1> <!-- print here errors, or something -->
+            <!-- errors -->
+            <article class="message is-danger">
+              <div id="formErrorHead"></div>
+              <div id="formErrorBody"></div>
+            </article>
         </div>
 
         <!-- TOP RIGHT BOX -->
@@ -68,15 +72,10 @@
         <!-- BOTTOM RIGHT BOX -->
         <div class="Bottom-right box">
             <div>
-                <script>
-                    function ClassChange(){
-                        document.getElementById("clearButton").className = "button is-danger is-medium is-fullwidth";
-                    }
-                    function RevertClassChange(){
-                        document.getElementById("clearButton").className = "button is-dark is-medium is-fullwidth";
-                    }
-                </script>
-                <button id="clearButton" class="button is-dark is-medium is-fullwidth" onclick="deleteAllCookies();" onmouseover="ClassChange();" onmouseleave="RevertClassChange();">Clear cookies</button>
+                <button id="clearButton" class="button is-dark is-medium is-fullwidth" onclick="deleteAllCookies();" 
+                  onmouseover="$('#clearButton').addClass('is-danger');" onmouseleave="$('#clearButton').removeClass('is-danger');">
+                  Clear cookies
+                </button>
             </div>
         </div>
 
