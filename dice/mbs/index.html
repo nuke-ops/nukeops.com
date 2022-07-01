@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html> 
+<head>
+    <title>Dice</title>
+    <link rel="icon" type="image/x-icon" href="/resources/images/nstrat.ico">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
+        <script src="/resources/javascript/dice.js"></script>
+        <script src="/resources/javascript/math.js"></script>
+        <script src="./js/mbsClient.js"></script>
+
+    <link rel="stylesheet" href="/resources/stylesheet/bulma.css">
+        <link rel="stylesheet" href="/resources/stylesheet/dice.css">
+        <link rel="stylesheet" href="/resources/stylesheet/radio.css"
+        
+</head>
+
+<body>
+    <div>
+        <button class="button is-primary is-fullwidth" onclick="SpinTheWheel();">SPIN THE WHEEL</button><br/>
+            <article class="message is-danger" style="margin-top: -20px;">
+                <div class="message-body">
+                    <h4 id="errors_wheelOfSalt"></h4>
+                    <h4 id="wheelOfSalt"></h4>
+                </div>
+            </article>
+    </div>
+</body>
+</html>

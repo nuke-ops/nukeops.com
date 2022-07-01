@@ -52,8 +52,8 @@ async function generate_table(json){
         const dice = x["dice"];
         const sides = x["sides"];
         const date = x["date"];
-        const threw = x["throw_results"];
-        const mod = x["modifier"];
+        const threw = x["throws"];
+        const raw_mod = x["mod"];
         const sum = x["sum"];
 
         let table_headers    =   "<tr>"
@@ -61,7 +61,7 @@ async function generate_table(json){
                                 +"<th>Dice</th>"
                                 +"<th>Time</th>"
                                 +"<th>threw</th>"
-                                +"<th>modifier</th>"
+                                +"<th>mod</th>"
                                 +"<th>Sum</th>"
                                 +"</tr>"
         let rows  =  `<tr>`
@@ -69,26 +69,23 @@ async function generate_table(json){
                     +`<td> ${dice}d${sides} </td>`
                     +`<td> ${date} </td>`
                     +`<td> ${threw} </td>`
-                    +`<td> ${mod} </td>`
+                    +`<td> ${raw_mod} </td>`
                     +`<td> ${sum} </td>`
                     +`</tr>`;
         $("#json_table").append(table_headers + rows);
     }
-    stopLoading("#formSubmit"); // stop loading animation
+    stopLoading("#formSubmit");
 }
 
 
 function dice_form(){
-    buttonLoading("#formSubmit"); // start loading animation
+    buttonLoading("#formSubmit");
     const form = document.getElementById("dice_form");
 
     // form values
     let name = form.elements["name"].value;
     let dice = form.elements["dice"].value;
     let sides = form.elements["sides"].value;
-
-    // Cookies
-    // let cookie_name = document.cookie = "username="+name;
 
     // save current time
     let currentdate = new Date(); 
@@ -101,11 +98,17 @@ function dice_form(){
 
     // Error handlers
         const formErrors = new Array();
+            // name
             if(!name){ // No name
                 formErrors.push("You must enter a name");
-            } else if(name && !alphanumeric(name)){ // Illegal characters
+            }
+            else if(!alphanumeric(name)){ // Illegal characters
                 formErrors.push("Illegal characters in name");
             }
+            else if(name.length >= 35){ // name to long
+                formErrors.push("Name length limit: 35");
+            }
+            //dice
             if(dice > 50){ // Too much dice
                 formErrors.push("Max amount of dice: 50");
             }
@@ -123,56 +126,56 @@ function dice_form(){
             return;
         }
 
-    // check if there's modifier (kill me)
-    let mod = 0;
-    let modifier = "";
-    if($("input[id='cus_radio']:checked").val()){mod = $("#cus_input").val();
-                                                 modifier = "cus("; if(mod > 0){modifier += "+"};
-                                                 modifier += mod + ")"};
+    // check if there's mod (kill me)
+    let raw_mod = 0;
+    let mod = "";
+    if($("input[id='cus_radio']:checked").val()){raw_mod = $("#cus_input").val();
+                                                 mod = "cus("; if(raw_mod > 0){mod += "+"};
+                                                 mod += raw_mod + ")"};
                                                  
-    if($("input[id='str_radio']:checked").val()){mod = $("#str_input").val();
-                                                 modifier = "str("; if(mod > 0){modifier += "+"};
-                                                 modifier += mod + ")";}
+    if($("input[id='str_radio']:checked").val()){raw_mod = $("#str_input").val();
+                                                 mod = "str("; if(raw_mod > 0){mod += "+"};
+                                                 mod += raw_mod + ")";}
                                                  
-    if($("input[id='dex_radio']:checked").val()){mod = $("#dex_input").val();
-                                                 modifier = "dex("; if(mod > 0){modifier += "+"};
-                                                 modifier += mod + ")";}
+    if($("input[id='dex_radio']:checked").val()){raw_mod = $("#dex_input").val();
+                                                 mod = "dex("; if(raw_mod > 0){mod += "+"};
+                                                 mod += raw_mod + ")";}
                                                  
-    if($("input[id='con_radio']:checked").val()){mod = $("#con_input").val();
-                                                 modifier = "con("; if(mod > 0){modifier += "+"};
-                                                 modifier += mod + ")";}
+    if($("input[id='con_radio']:checked").val()){raw_mod = $("#con_input").val();
+                                                 mod = "con("; if(raw_mod > 0){mod += "+"};
+                                                 mod += raw_mod + ")";}
                                                  
-    if($("input[id='int_radio']:checked").val()){mod = $("#int_input").val();
-                                                 modifier = "int("; if(mod > 0){modifier += "+"};
-                                                 modifier += mod + ")";}
+    if($("input[id='int_radio']:checked").val()){raw_mod = $("#int_input").val();
+                                                 mod = "int("; if(raw_mod > 0){mod += "+"};
+                                                 mod += raw_mod + ")";}
                                                  
-    if($("input[id='wis_radio']:checked").val()){mod = $("#wis_input").val();
-                                                 modifier = "wis("; if(mod > 0){modifier += "+"};
-                                                 modifier += mod + ")";}
+    if($("input[id='wis_radio']:checked").val()){raw_mod = $("#wis_input").val();
+                                                 mod = "wis("; if(raw_mod > 0){mod += "+"};
+                                                 mod += raw_mod + ")";}
                                                  
-    if($("input[id='cha_radio']:checked").val()){mod = $("#cha_input").val();
-                                                 modifier = "cha("; if(mod > 0){modifier += "+"};
-                                                 modifier += mod + ")";}
+    if($("input[id='cha_radio']:checked").val()){raw_mod = $("#cha_input").val();
+                                                 mod = "cha("; if(raw_mod > 0){mod += "+"};
+                                                 mod += raw_mod + ")";}
 
     // roll
-    let throw_results = [];
+    let throws = [];
     for(let i=1;i<=dice;i++){
-        throw_results.push(Math.floor((Math.random() * sides) + 1));
+        throws.push(Math.floor((Math.random() * sides) + 1));
     }
 
     // sum
     let sum = 0;
-    for(const x of throw_results){
+    for(const x of throws){
         sum += x;
-    } sum += mod*1;
+    } sum += raw_mod*1;
 
     // send to php
     $.ajax({
         type : "POST",
         url  : "/resources/php/dice.php",
         data : { name : name, dice : dice, sides : sides,
-                throw_results : throw_results, sum : sum, 
-                date : date, modifier : modifier}
+                throws : throws, sum : sum, 
+                date : date, mod : mod}
          },
     );
 }
@@ -209,33 +212,36 @@ function closeError(){
 
 function calc(){
     buttonLoading("#calculator_button");
-    let input = document.getElementById("calculator_input").value;
-    if (input.indexOf(',') > -1){
-        input = input.replace(",",".");
+    try{
+        let input = document.getElementById("calculator_input").value;
+        if (input.indexOf(',') > -1){
+            input = input.replace(",",".");
+        }
+        let output = math.evaluate(input)
+        $('#calculator_input').attr("placeholder",output);
+        $("#calculator_input").val("");
+        stopLoading("#calculator_button");
+    } catch(error){
+        $("#calculator_input").val("");
+        $("#calculator_input").attr("placeholder","Invalid input");
+        stopLoading("#calculator_button");
     }
-    let output = math.evaluate(input)
-    $('#calculator_input').attr('placeholder',output);
-    document.getElementById("calculator_input").value = "";
-    stopLoading("#calculator_button");
 }
 
 function SpinTheWheel(){
     buttonLoading("#wheelOfSalt");
-
-    const form = document.getElementById("dice_form");
-    let name = form.elements["name"].value;
+    let name = Cookies.get("name");
 
     if(!name){
         $("#errors_wheelOfSalt").html("Error: No name specified");
         stopLoading("#wheelOfSalt");
-        console.log("bs")
         return;
     } else {$("#errors_wheelOfSalt").html("");}
 
     $.ajax({
         type : "POST",
         url  : "/resources/php/roll.php",
-        data : { name : $("#name").val() }
+        data : { name : name }
     }
     );
     stopLoading("#wheelOfSalt");

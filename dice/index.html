@@ -50,23 +50,21 @@
         </div>
 
         <!-- TOP RIGHT BOX -->
-        <div class="Top-right box">
-            <form       id="calculator_form" method="post" onSubmit="return false;">
-                <input  id="calculator_input"  class="input is-primary" type="text" placeholder="function">
-                <button id="calculator_button" class="button is-primary is-fullwidth" onclick="calc();">Calculate</button>
-            </form>
+        <div class="Top-right" style="margin-top: -10px;">
+          <iframe src="./mbs/index.html" style="height: 120%;width: 100%;border:none;" scrolling="no"></iframe>
         </div>
 
         <!-- TOP BOX -->
         <div class="Top box">
-
+          <form       id="calculator_form" method="post" onSubmit="return false;">
+            <input  id="calculator_input"  class="input is-primary" type="text" placeholder="function">
+            <button id="calculator_button" class="button is-primary is-fullwidth" onclick="calc();">Calculate</button>
+            <button class="button" onclick=" window.open('https:\/\/mathjs.org/examples/index.html','_blank')"> Docs</button>
+        </form>
         </div>
     
         <!-- BOTTOM BOX -->
         <div class="Bottom box">
-            <button class="button is-primary" onclick="SpinTheWheel();">SPIN THE WHEEL</button><br/>
-            <h4 id="errors_wheelOfSalt"></h4>
-            <h4 id="wheelOfSalt"></h4>
         </div>
         
         <!-- BOTTOM RIGHT BOX -->
@@ -80,7 +78,7 @@
         </div>
 
         <!-- RIGHT BOX -->
-        <div class="Right box">
+        <div class="Right box" style="margin-top: 10%;">
             <h1 class="is-size-3 has-text-weight-bold is-family-sans-serif">Modifiers</h1>
             <div class="radio-tile-group">
                 <div class="input-container">

@@ -1,4 +1,6 @@
 <?php
+// goal was to get a random line from file, and save it, so we can fetch it later in js, or something like this, I think  
+
 $target_dir = "../../dice/data/";
 $target_file = $target_dir . basename("list.txt");
 
