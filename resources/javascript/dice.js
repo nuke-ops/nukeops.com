@@ -98,11 +98,17 @@ function dice_form(){
 
     // Error handlers
         const formErrors = new Array();
+            // name
             if(!name){ // No name
                 formErrors.push("You must enter a name");
-            } else if(name && !alphanumeric(name)){ // Illegal characters
+            }
+            else if(!alphanumeric(name)){ // Illegal characters
                 formErrors.push("Illegal characters in name");
             }
+            else if(name.length >= 35){ // name to long
+                formErrors.push("Name length limit: 35");
+            }
+            //dice
             if(dice > 50){ // Too much dice
                 formErrors.push("Max amount of dice: 50");
             }
@@ -224,21 +230,18 @@ function calc(){
 
 function SpinTheWheel(){
     buttonLoading("#wheelOfSalt");
-
-    const form = document.getElementById("dice_form");
-    let name = form.elements["name"].value;
+    let name = Cookies.get("name");
 
     if(!name){
         $("#errors_wheelOfSalt").html("Error: No name specified");
         stopLoading("#wheelOfSalt");
-        console.log("bs")
         return;
     } else {$("#errors_wheelOfSalt").html("");}
 
     $.ajax({
         type : "POST",
         url  : "/resources/php/roll.php",
-        data : { name : $("#name").val() }
+        data : { name : name }
     }
     );
     stopLoading("#wheelOfSalt");
