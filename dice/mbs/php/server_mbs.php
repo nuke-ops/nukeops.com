@@ -1,7 +1,7 @@
 <?php
 // https://github.com/panique/php-long-polling
 set_time_limit(0);
-$data_source_file = '../../dice/data/mbs.txt';
+$data_source_file = '../../data/mbs.txt';
 
 while (true) {
 

@@ -1,49 +1,3 @@
-$(function(){getCookies()});
-
-function deleteAllCookies() {
-    buttonLoading("#clearButton");
-        Cookies.remove('name');
-        Cookies.remove('cus');
-        Cookies.remove('str');
-        Cookies.remove('dex');
-        Cookies.remove('con');
-        Cookies.remove('int');
-        Cookies.remove('wis');
-        Cookies.remove('cha');
-    stopLoading("#clearButton");
-};
-function setCookies(){
-    Cookies.set('name', $("#name").val());
-    Cookies.set('cus', $("#cus_input").val());
-    Cookies.set('str', $("#str_input").val());
-    Cookies.set('dex', $("#dex_input").val());
-    Cookies.set('con', $("#con_input").val());
-    Cookies.set('int', $("#int_input").val());
-    Cookies.set('wis', $("#wis_input").val());
-    Cookies.set('cha', $("#cha_input").val());
-};
-function getCookies(){
-    $("#name").attr("value",Cookies.get("name"));
-    $("#cus_input").attr("value",Cookies.get("cus"));
-    $("#str_input").attr("value",Cookies.get("str"));
-    $("#dex_input").attr("value",Cookies.get("dex"));
-    $("#con_input").attr("value",Cookies.get("con"));
-    $("#int_input").attr("value",Cookies.get("int"));
-    $("#wis_input").attr("value",Cookies.get("wis"));
-    $("#cha_input").attr("value",Cookies.get("cha"));
-};
-
-
-function buttonLoading(buttonClass){
-    $(buttonClass).addClass("is-loading");
-    $(buttonClass).prop('disabled', true);
-};
-function stopLoading(buttonClass){
-    $(buttonClass).removeClass("is-loading");
-    $(buttonClass).prop('disabled', false);
-};
-
-
 async function generate_table(json){
     $("#json_table").html("");
 
@@ -126,36 +80,39 @@ function dice_form(){
             return;
         }
 
-    // check if there's mod (kill me)
+    // check if there's modifier (kill me)
     let raw_mod = 0;
     let mod = "";
-    if($("input[id='cus_radio']:checked").val()){raw_mod = $("#cus_input").val();
-                                                 mod = "cus("; if(raw_mod > 0){mod += "+"};
-                                                 mod += raw_mod + ")"};
-                                                 
-    if($("input[id='str_radio']:checked").val()){raw_mod = $("#str_input").val();
-                                                 mod = "str("; if(raw_mod > 0){mod += "+"};
-                                                 mod += raw_mod + ")";}
-                                                 
-    if($("input[id='dex_radio']:checked").val()){raw_mod = $("#dex_input").val();
-                                                 mod = "dex("; if(raw_mod > 0){mod += "+"};
-                                                 mod += raw_mod + ")";}
-                                                 
-    if($("input[id='con_radio']:checked").val()){raw_mod = $("#con_input").val();
-                                                 mod = "con("; if(raw_mod > 0){mod += "+"};
-                                                 mod += raw_mod + ")";}
-                                                 
-    if($("input[id='int_radio']:checked").val()){raw_mod = $("#int_input").val();
-                                                 mod = "int("; if(raw_mod > 0){mod += "+"};
-                                                 mod += raw_mod + ")";}
-                                                 
-    if($("input[id='wis_radio']:checked").val()){raw_mod = $("#wis_input").val();
-                                                 mod = "wis("; if(raw_mod > 0){mod += "+"};
-                                                 mod += raw_mod + ")";}
-                                                 
-    if($("input[id='cha_radio']:checked").val()){raw_mod = $("#cha_input").val();
-                                                 mod = "cha("; if(raw_mod > 0){mod += "+"};
-                                                 mod += raw_mod + ")";}
+    if(!$("input[id='non_radio']:checked").val()){ // if none button is checked - skip all if's
+        if($("input[id='cus_radio']:checked").val()){  // if radio button is checked
+            raw_mod = $("#cus_input").val();           // add it's value to roll
+            mod = "cus("; if(raw_mod > 0){mod += "+"}; // assemble string eg. str(+5)
+            mod += raw_mod + ")"}; 
+        if($("input[id='str_radio']:checked").val()){
+            raw_mod = $("#str_input").val();
+            mod = "str("; if(raw_mod > 0){mod += "+"};
+            mod += raw_mod + ")";} 
+        if($("input[id='dex_radio']:checked").val()){
+            raw_mod = $("#dex_input").val();
+            mod = "dex("; if(raw_mod > 0){mod += "+"};
+            mod += raw_mod + ")";}  
+        if($("input[id='con_radio']:checked").val()){
+            raw_mod = $("#con_input").val();
+            mod = "con("; if(raw_mod > 0){mod += "+"};
+            mod += raw_mod + ")";}  
+        if($("input[id='int_radio']:checked").val()){
+            raw_mod = $("#int_input").val();
+            mod = "int("; if(raw_mod > 0){mod += "+"};
+            mod += raw_mod + ")";}    
+        if($("input[id='wis_radio']:checked").val()){
+            raw_mod = $("#wis_input").val();
+            mod = "wis("; if(raw_mod > 0){mod += "+"};
+            mod += raw_mod + ")";}            
+        if($("input[id='cha_radio']:checked").val()){
+            raw_mod = $("#cha_input").val();
+            mod = "cha("; if(raw_mod > 0){mod += "+"};
+            mod += raw_mod + ")";}
+    }
 
     // roll
     let throws = [];
@@ -172,7 +129,7 @@ function dice_form(){
     // send to php
     $.ajax({
         type : "POST",
-        url  : "/resources/php/dice.php",
+        url  : "/dice/php/dice.php",
         data : { name : name, dice : dice, sides : sides,
                 throws : throws, sum : sum, 
                 date : date, mod : mod}
@@ -226,25 +183,6 @@ function calc(){
         $("#calculator_input").attr("placeholder","Invalid input");
         stopLoading("#calculator_button");
     }
-}
-
-function SpinTheWheel(){
-    buttonLoading("#wheelOfSalt");
-    let name = Cookies.get("name");
-
-    if(!name){
-        $("#errors_wheelOfSalt").html("Error: No name specified");
-        stopLoading("#wheelOfSalt");
-        return;
-    } else {$("#errors_wheelOfSalt").html("");}
-
-    $.ajax({
-        type : "POST",
-        url  : "/resources/php/roll.php",
-        data : { name : name }
-    }
-    );
-    stopLoading("#wheelOfSalt");
 }
 
 function set_dice(dice,sides){
