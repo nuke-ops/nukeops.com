@@ -6,7 +6,7 @@ function getContent(timestamp){
             url: './php/server_mbs.php',
             data: queryString,
             success: function(data){
-                console.log(data);
+                // console.log(data); // debug
                 let obj = jQuery.parseJSON(data);
                 $('#wheelOfSalt').html(obj.data_from_file);
                 getContent(obj.timestamp);

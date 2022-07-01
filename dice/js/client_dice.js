@@ -6,7 +6,7 @@
             url: './php/server_dice.php',
             data: queryString,
             success: function(data){
-                console.log(data);
+                // console.log(data); // debug
                 let obj = jQuery.parseJSON(data);
                 generate_table(JSON.parse(JSON.stringify(obj.data_from_file)));
                 getContent(obj.timestamp);
