@@ -1,4 +1,4 @@
-#!C:\Python39\python.exe
+#!C:\Python\3.9\python.exe
 import requests
 import time
 from contextlib import redirect_stdout
@@ -15,7 +15,7 @@ print("		<meta name='viewport' content='width=device-width, initial-scale=1'>")
 print("		<link rel='stylesheet' href='../resources/stylesheet/style.css'>")
 print("			<link href='https://fonts.googleapis.com/css?family=Roboto&display=swap' rel='stylesheet'>")
 print("	<script type='text/javascript' src='https://code.jquery.com/jquery-3.6.0.min.js'></script>")
-print("		<script type='text/javascript' src='/resources/javascript/WfClient.js'></script>")
+print("		<script type='text/javascript' src='./js/client.js'></script>")
 print("	<style>@font-face{font-family:joystixmonospace;src:url('../resources/fonts/joystix_monospace-webfont.woff')}</style>")
 print("</head>")
 print("<body>")

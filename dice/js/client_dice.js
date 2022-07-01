@@ -1,10 +1,9 @@
 // https://github.com/panique/php-long-polling
  function getContent(timestamp){
     var queryString = {'timestamp' : timestamp};
-    $.ajax(
-        {
+    $.ajax({
             type: 'GET',
-            url: '/resources/php/DiceServer.php',
+            url: './php/server_dice.php',
             data: queryString,
             success: function(data){
                 console.log(data);
@@ -12,8 +11,7 @@
                 generate_table(JSON.parse(JSON.stringify(obj.data_from_file)));
                 getContent(obj.timestamp);
             }
-        }
-    )
+        });
 }
 
 $(function() {
