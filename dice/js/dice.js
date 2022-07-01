@@ -7,7 +7,7 @@ async function generate_table(json){
         const sides = x["sides"];
         const date = x["date"];
         const threw = x["throws"];
-        const raw_mod = x["mod"];
+        const mod = x["mod"];
         const sum = x["sum"];
 
         let table_headers    =   "<tr>"
@@ -23,7 +23,7 @@ async function generate_table(json){
                     +`<td> ${dice}d${sides} </td>`
                     +`<td> ${date} </td>`
                     +`<td> ${threw} </td>`
-                    +`<td> ${raw_mod} </td>`
+                    +`<td> ${mod} </td>`
                     +`<td> ${sum} </td>`
                     +`</tr>`;
         $("#json_table").append(table_headers + rows);

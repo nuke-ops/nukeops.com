@@ -37,7 +37,7 @@ function write($sqlite_file){
     $stmt->bindValue(2, $dice, SQLITE3_INTEGER);
     $stmt->bindValue(3, $sides, SQLITE3_INTEGER);
     $stmt->bindValue(4, $throws, SQLITE3_TEXT);
-    $stmt->bindValue(5, $mod, SQLITE3_INTEGER);
+    $stmt->bindValue(5, $mod, SQLITE3_TEXT);
     $stmt->bindValue(6, $sum, SQLITE3_INTEGER);
     $stmt->execute();
     $db->close();
