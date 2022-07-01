@@ -9,8 +9,5 @@ __pycache__/
 *.bak
 
 # Ignore files
-dice/data/dice.db
-dice/data/list.txt
-dice/data/mbs.txt
+dice/data/*
 dice/upload/.htaccess
-
