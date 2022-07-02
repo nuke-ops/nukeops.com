@@ -6,6 +6,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
+    <script src="https://kit.fontawesome.com/fdf4608416.js" crossorigin="anonymous"></script>
     <script src="/resources/javascript/math.js"></script>
     <script src="./js/dice.js"></script>
         <script src="./js/client_dice.js"></script>
@@ -24,8 +25,12 @@
         <div class="Top-left box">
             <form method="post" id="dice_form" onSubmit="return false;">
                 <div class="field is-horizontal has-addons">
-                    <div class="control is-expanded">   <input  id="name"       class="input is-primary"  type="text"   placeholder="Name"></div>
-                    <div class="control">   <button id="formSubmit" class="button is-primary" type="submit" onclick="dice_form();setCookies();getCookies();">enter</button></div>
+                    <div class="control is-expanded">
+                      <input  id="name"       class="input is-primary"  type="text"   placeholder="Name">
+                    </div>
+                    <div class="control">
+                      <button id="formSubmit" class="button is-primary" type="submit" onclick="dice_form();setCookies();getCookies();">enter &nbsp;<i class="fa-solid fa-dice-d20"></i></button>
+                    </div>
                 </div>
 
                 <div class="field is-horizontal has-addons">
@@ -52,24 +57,32 @@
         </div>
 
         <!-- TOP RIGHT BOX -->
-        <div class="Top-right" style="margin-top: -10px;">
-          <iframe src="./mbs/index.html" style="height: 120%;width: 100%;border:none;" scrolling="no"></iframe>
+        <div class="Top-right">
+          <iframe src="./mbs/index.html" style="height: 95%;width: 100%;border:none;"></iframe>
         </div>
 
         <!-- TOP BOX -->
         <div class="Top box">
-          <form       id="calculator_form" method="post" onSubmit="return false;">
-            <input  id="calculator_input"  class="input is-primary" type="text" placeholder="function">
+          <form id="calculator_form" method="post" onSubmit="return false;">
+            <div class="field has-addons">
+              <div class="control is-expanded">
+                <input  id="calculator_input" class="input is-info" type="text" placeholder="function">
+              </div>
+              <div class="control">
+                <button class="button is-info is-outlined" style="gap: -100px !important;" onclick="copyToClipboard('calculator_input','calcError',2000);"><i class="fa-solid fa-copy"></i></button>
+              </div>
+              <div class="control">
+                <button class="button is-danger is-outlined" onclick="$('#calculator_input').val('')"><i class="fa-solid fa-eraser"></i></button>
+              </div>
+            </div>
             <button id="calculator_button" class="button is-primary is-fullwidth" onclick="calc();">Calculate</button>
-            <div>
-              <button class="button" onclick="copyToClipboard('calculator_input','calcError',2000);">Copy</button>
-              <button class="button" onclick="$('#calculator_input').val('')">Clear</button>
-              <button class="button" onclick=" window.open('https:\/\/mathjs.org/examples/index.html','_blank')">Docs</button>
+            <div class="level-right">
+              <button class="button icon" onclick="window.open('https:\/\/mathjs.org/examples/index.html','_blank')" style="right: 0px;top: 30px;">&nbsp;<i class="fa-solid fa-file-lines"></i></button>
             </div>
             <div id="calcError" hidden>
               <h1>Successfully copied to clipboard!</h1>
             </div>
-        </form>
+          </form>
         </div>
     
         <!-- BOTTOM BOX -->
@@ -87,7 +100,7 @@
         </div>
 
         <!-- RIGHT BOX -->
-        <div class="Right box" style="margin-top: 10%;">
+        <div class="Right box">
             <h1 class="is-size-3 has-text-weight-bold is-family-sans-serif">Modifiers</h1>
             <div class="radio-tile-group">
                 <div class="input-container">
@@ -99,43 +112,43 @@
                 <div class="input-container">
                     <input id="cus_radio" class="radio-button" type="radio" name="mod" />
                     <div class="radio-tile">Custom
-                        <input id="cus_input"  class="input is-primary" type="number" placeholder="Custom">
+                        <input id="cus_input" style="border: none;" class="input is-primary" type="number" placeholder="Custom">
                     </div>
                   </div>
                   <div class="input-container">
                     <input id="str_radio" class="radio-button" type="radio" name="mod" />
                     <div class="radio-tile">Strength
-                      <input id="str_input"  class="input is-primary" type="number" placeholder="Strength">
+                      <input id="str_input" style="border: none;" class="input is-primary" type="number" placeholder="Strength">
                     </div>
                   </div>
                   <div class="input-container">
                     <input id="dex_radio" class="radio-button" type="radio" name="mod" />
                     <div class="radio-tile">Dexterity
-                      <input id="dex_input"  class="input is-primary" type="number" placeholder="Dexterity">
+                      <input id="dex_input" style="border: none;" class="input is-primary" type="number" placeholder="Dexterity">
                     </div>
                   </div>
                   <div class="input-container">
                     <input id="con_radio" class="radio-button" type="radio" name="mod" />
                     <div class="radio-tile">Constitution
-                      <input id="con_input"  class="input is-primary" type="number" placeholder="Constitution">
+                      <input id="con_input" style="border: none;" class="input is-primary" type="number" placeholder="Constitution">
                     </div>
                   </div>
                   <div class="input-container">
                     <input id="int_radio" class="radio-button" type="radio" name="mod" />
                     <div class="radio-tile">Intelligence
-                      <input id="int_input"  class="input is-primary" type="number" placeholder="Intelligence">
+                      <input id="int_input" style="border: none;" class="input is-primary" type="number" placeholder="Intelligence">
                     </div>
                   </div>
                   <div class="input-container">
                     <input id="wis_radio" class="radio-button" type="radio" name="mod" />
                     <div class="radio-tile">Wisdom
-                      <input id="wis_input"  class="input is-primary" type="number" placeholder="Wisdom">
+                      <input id="wis_input" style="border: none;" class="input is-primary" type="number" placeholder="Wisdom">
                     </div>
                   </div>
                   <div class="input-container">
                     <input id="cha_radio" class="radio-button" type="radio" name="mod" />
                     <div class="radio-tile">Charisma
-                      <input id="cha_input"  class="input is-primary" type="number" placeholder="Charisma">
+                      <input id="cha_input" style="border: none;" class="input is-primary" type="number" placeholder="Charisma">
                     </div>
                   </div>
             </div>
@@ -144,7 +157,7 @@
         <!-- MIDDLE -->
         <div class="Middle box" style="margin-bottom:10px;margin-top:-10px;">
             <div id="table_div">
-                <table id="json_table" class="table is-striped is-narrow is-hoverable is-fullwidth" style="table-layout:fixed;word-wrap:break-word";">
+                <table id="json_table" class="table is-striped is-narrow is-hoverable is-fullwidth" style="table-layout:fixed;word-wrap:break-word;">
                     <!-- here js generated table from json -->
                 </table>
             </div>
