@@ -51,8 +51,8 @@
         });
     }
     function popup(elementId, duration){
-            $(`#${elementId}`).show(); 
+            $(`#${elementId}`).fadeIn(); 
             setTimeout(function() {
-               $(`#${elementId}`).hide();
+               $(`#${elementId}`).fadeOut();
              }, duration);
          };
