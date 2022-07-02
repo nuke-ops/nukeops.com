@@ -147,7 +147,6 @@ function alphanumeric(inputtxt){
 }
 
 function formError(errors){
-    // let output = new String;
     let output = "";
     for (const x of errors){
         output += x+"<br/>";
@@ -175,8 +174,7 @@ function calc(){
             input = input.replace(",",".");
         }
         let output = math.evaluate(input)
-        $('#calculator_input').attr("placeholder",output);
-        $("#calculator_input").val("");
+        $("#calculator_input").val(output);
         stopLoading("#calculator_button");
     } catch(error){
         $("#calculator_input").val("");

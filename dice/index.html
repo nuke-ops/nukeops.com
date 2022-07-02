@@ -61,7 +61,14 @@
           <form       id="calculator_form" method="post" onSubmit="return false;">
             <input  id="calculator_input"  class="input is-primary" type="text" placeholder="function">
             <button id="calculator_button" class="button is-primary is-fullwidth" onclick="calc();">Calculate</button>
-            <button class="button" onclick=" window.open('https:\/\/mathjs.org/examples/index.html','_blank')"> Docs</button>
+            <div>
+              <button class="button" onclick="copyToClipboard('calculator_input','calcError',2000);">Copy</button>
+              <button class="button" onclick="$('#calculator_input').val('')">Clear</button>
+              <button class="button" onclick=" window.open('https:\/\/mathjs.org/examples/index.html','_blank')">Docs</button>
+            </div>
+            <div id="calcError" hidden>
+              <h1>Successfully copied to clipboard!</h1>
+            </div>
         </form>
         </div>
     

@@ -18,6 +18,10 @@
   	background: #7A9AB9;
 }
 
+#calculator_input::placeholder {
+	color: rgba(63, 61, 61, 0.651);
+  }
+
 body {
 	background: #1F1B24;
 	margin-top: 10px !important;

@@ -42,3 +42,17 @@
         $(buttonClass).removeClass("is-loading");
         $(buttonClass).prop('disabled', false);
     };
+
+// other
+    function copyToClipboard(inputId,popupId,popupDuration) {
+        var copyText = document.getElementById(inputId).value;
+        navigator.clipboard.writeText(copyText).then(() => {
+            popup(popupId,popupDuration);
+        });
+    }
+    function popup(elementId, duration){
+            $(`#${elementId}`).show(); 
+            setTimeout(function() {
+               $(`#${elementId}`).hide();
+             }, duration);
+         };
