@@ -18,10 +18,6 @@
   	background: #7A9AB9;
 }
 
-#calculator_input::placeholder {
-	color: rgba(63, 61, 61, 0.651);
-  }
-
 body {
 	background: #1F1B24;
 	margin-top: 10px !important;
@@ -43,3 +39,10 @@ body {
 .Bottom-right { grid-area: Bottom-right; }
 .Middle { grid-area: Middle; }
 .Right { grid-area: Right; }
+
+tr:hover {
+	background-color: rgba(0, 0, 0, 0.100);
+}
+input[type=checkbox] {
+	display:none;
+}

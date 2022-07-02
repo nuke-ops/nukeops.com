@@ -10,6 +10,7 @@
             Cookies.remove('int');
             Cookies.remove('wis');
             Cookies.remove('cha');
+            Cookies.remove('dark');
         stopLoading("#clearButton");
     };
     function setCookies(){
@@ -21,6 +22,8 @@
         Cookies.set('int', $("#int_input").val());
         Cookies.set('wis', $("#wis_input").val());
         Cookies.set('cha', $("#cha_input").val());
+        if ($('#dark-mode_button').is(":checked")){Cookies.set('dark', true);
+        } else {Cookies.set('dark', false);}
     };
     function getCookies(){
         $("#name").attr("value",Cookies.get("name"));
@@ -31,6 +34,7 @@
         $("#int_input").attr("value",Cookies.get("int"));
         $("#wis_input").attr("value",Cookies.get("wis"));
         $("#cha_input").attr("value",Cookies.get("cha"));
+        $("#dark-mode_button")[0].checked = (Cookies.get("dark") === 'true');
     };
 
 // loading
