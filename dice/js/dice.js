@@ -187,3 +187,27 @@ function set_dice(dice,sides){
     $("#dice").val(dice);
     $("#sides").val(sides);
 }
+
+function dark_mode(){
+    if($("#dark-mode_button").is(':checked')){
+        $("#dark-mode_label").removeClass("is-outlined");
+        $("#dark-mode").html(`
+        <style>
+            input::placeholder{
+                color: rgba(63, 61, 61, 0.651) !important;
+            }
+            .box, .input, .table{
+                background-color: #121212 !important;
+                color: white !important;
+            }
+            th:nth-child(n), td:nth-child(n){
+                color: white;
+                border-color: #6b6a6ad8;
+            }
+        </style>
+        `);
+    } else {
+        $("#dark-mode_label").addClass("is-outlined");
+        $("#dark-mode").html(``);
+    }
+}
