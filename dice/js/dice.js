@@ -1,6 +1,5 @@
 async function generate_table(json){
     $("#json_table").html("");
-
     for(x of json){
         const name = x["name"];
         const dice = x["dice"];
@@ -31,9 +30,20 @@ async function generate_table(json){
     stopLoading("#formSubmit");
 }
 
+function showProgressBar(){
+    $("#formSubmitDiv").fadeOut();
+    $("#progressBar").fadeIn();
+    $("#progressBar").addClass("progress");
+}
+function hideProgressBar(){
+    $("#progressBar").removeClass("progress");
+    $("#progressBar").fadeOut();
+    $("#formSubmitDiv").fadeIn();
+    progressBar("#progressBar",0);
+}
 
 function dice_form(){
-    buttonLoading("#formSubmit");
+    startLoading("#formSubmit");
     const form = document.getElementById("dice_form");
 
     // form values
@@ -167,7 +177,7 @@ function closeError(){
 }
 
 function calc(){
-    buttonLoading("#calculator_button");
+    startLoading("#calculator_button");
     try{
         let input = document.getElementById("calculator_input").value;
         if (input.indexOf(',') > -1){

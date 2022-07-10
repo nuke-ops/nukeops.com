@@ -38,7 +38,7 @@
     };
 
 // loading
-    function buttonLoading(buttonClass){
+    function startLoading(buttonClass){
         $(buttonClass).addClass("is-loading");
         $(buttonClass).prop('disabled', true);
     };
@@ -46,6 +46,9 @@
         $(buttonClass).removeClass("is-loading");
         $(buttonClass).prop('disabled', false);
     };
+    function progressBar(barClass,value){
+        $(barClass).val(value)
+    }
 
 // other
     function copyToClipboard(inputId,popupId,popupDuration) {

@@ -11,7 +11,7 @@ function create($conn){
         dice INT(10) NOT NULL,
         sides INT(10) NOT NULL,
         throws VARCHAR(100) NOT NULL,
-        modifier VARCHAR(30),
+        `mod` VARCHAR(30),
         sum INT(10) NOT NULL,
         date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
         )";
@@ -24,16 +24,15 @@ function create($conn){
 }
 
 function write($conn){
-    $stmt = $conn->prepare("INSERT INTO rolls(name,dice,sides,throws,modifier,sum) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO rolls(name,dice,sides,throws,`mod`,sum) VALUES (?, ?, ?, ?, ?, ?)");
     $name = $_REQUEST["name"];
     $dice = $_REQUEST["dice"];
     $sides = $_REQUEST["sides"];
     $throws = implode(",", $_REQUEST["throws"]);
-    if($mod){$mod = $_REQUEST["mod"];}
-    else{$mod = " ";}
+    $mod = $_REQUEST["mod"];
     $sum = $_REQUEST["sum"];
 
-    $stmt->bind_param("siisis", $name, $dice, $sides, $throws, $modifier, $sum);
+    $stmt->bind_param("siissi", $name, $dice, $sides, $throws, $mod, $sum);
 
     $stmt->execute();
 }

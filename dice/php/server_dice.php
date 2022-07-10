@@ -19,7 +19,7 @@ while (true) {
         break;
 
     } else {
-        sleep(1);
+        sleep(1.2);
         continue;
     }
 }
