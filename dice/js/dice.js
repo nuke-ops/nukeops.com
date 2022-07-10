@@ -138,7 +138,7 @@ function dice_form(){
 }
 
 function alphanumeric(inputtxt){
-    var letterNumber = /^[0-9a-zA-Z ]+$/;
+    var letterNumber = /^[0-9a-zA-Z -]+$/;
     if(inputtxt.match(letterNumber)) {
       return true;
     } else { 
