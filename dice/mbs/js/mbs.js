@@ -1,5 +1,5 @@
 function SpinTheWheel(){
-    buttonLoading("#wheelOfSalt");
+    startLoading("#wheelOfSalt");
     let name = Cookies.get("name");
 
     if(!name){
