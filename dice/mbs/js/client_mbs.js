@@ -3,6 +3,7 @@ function getContent(timestamp){
     var queryString = {'timestamp' : timestamp};
     $.ajax({
             type: 'GET',
+            cache: false,
             url: './php/server_mbs.php',
             data: queryString,
             success: function(data){

@@ -1,5 +1,5 @@
 function SpinTheWheel(){
-    startLoading("#wheelOfSalt");
+    buttonLoading("#wheelOfSalt");
     let name = Cookies.get("name");
 
     if(!name){
@@ -10,6 +10,7 @@ function SpinTheWheel(){
 
     $.ajax({
         type : "POST",
+        cache: false,
         url  : "/dice/mbs/php/randomizer.php",
         data : { name : name }
     }
