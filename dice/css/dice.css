@@ -46,3 +46,9 @@ tr:hover {
 input[type=checkbox] {
 	display:none;
 }
+
+.presetButton {
+	margin-left: 0.5%;
+	margin-right: 0.5%;
+	left: -3.5%;
+}

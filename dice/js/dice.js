@@ -1,6 +1,49 @@
+// cookies
+    $(function(){getCookies()}); // load cookies on page load
+    function deleteAllCookies() {
+        buttonLoading("#clearButton");
+            Cookies.remove('name');
+            Cookies.remove('cus');
+            Cookies.remove('str');
+            Cookies.remove('dex');
+            Cookies.remove('con');
+            Cookies.remove('int');
+            Cookies.remove('wis');
+            Cookies.remove('cha');
+            Cookies.remove('dark');
+        stopLoading("#clearButton");
+    }
+    function setCookies(){
+        Cookies.set('name', $("#name").val());
+        Cookies.set('cus', $("#cus_input").val());
+        Cookies.set('str', $("#str_input").val());
+        Cookies.set('dex', $("#dex_input").val());
+        Cookies.set('con', $("#con_input").val());
+        Cookies.set('int', $("#int_input").val());
+        Cookies.set('wis', $("#wis_input").val());
+        Cookies.set('cha', $("#cha_input").val());
+        if ($('#dark-mode_button').is(":checked")){
+            Cookies.set('dark', true);
+        }
+            else {Cookies.set('dark', false);
+        }
+    }
+    function getCookies(){
+        $("#name").attr("value",Cookies.get("name"));
+        $("#cus_input").attr("value",Cookies.get("cus"));
+        $("#str_input").attr("value",Cookies.get("str"));
+        $("#dex_input").attr("value",Cookies.get("dex"));
+        $("#con_input").attr("value",Cookies.get("con"));
+        $("#int_input").attr("value",Cookies.get("int"));
+        $("#wis_input").attr("value",Cookies.get("wis"));
+        $("#cha_input").attr("value",Cookies.get("cha"));
+        $("#dark-mode_button")[0].checked = (Cookies.get("dark") === 'true');
+    }
+
+
 async function generate_table(json){
     $("#json_table").html("");
-
+    let mod;
     for(x of json){
         const name = x["name"];
         const dice = x["dice"];
@@ -31,9 +74,20 @@ async function generate_table(json){
     stopLoading("#formSubmit");
 }
 
+function showProgressBar(){
+    $("#formSubmitDiv").fadeOut();
+    $("#progressBar").fadeIn();
+    $("#progressBar").addClass("progress");
+}
+function hideProgressBar(){
+    $("#progressBar").removeClass("progress");
+    $("#progressBar").fadeOut();
+    $("#formSubmitDiv").fadeIn();
+    progressBar("#progressBar",0);
+}
 
 function dice_form(){
-    buttonLoading("#formSubmit");
+    startLoading("#formSubmit");
     const form = document.getElementById("dice_form");
 
     // form values
@@ -130,6 +184,7 @@ function dice_form(){
     $.ajax({
         type : "POST",
         url  : "/dice/php/dice.php",
+            cache: false,
         data : { name : name, dice : dice, sides : sides,
                 throws : throws, sum : sum, 
                 date : date, mod : mod}
@@ -138,7 +193,7 @@ function dice_form(){
 }
 
 function alphanumeric(inputtxt){
-    var letterNumber = /^[0-9a-zA-Z ]+$/;
+    var letterNumber = /^[0-9a-zA-Z -]+$/;
     if(inputtxt.match(letterNumber)) {
       return true;
     } else { 
@@ -167,7 +222,7 @@ function closeError(){
 }
 
 function calc(){
-    buttonLoading("#calculator_button");
+    startLoading("#calculator_button");
     try{
         let input = document.getElementById("calculator_input").value;
         if (input.indexOf(',') > -1){

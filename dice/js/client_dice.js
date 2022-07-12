@@ -5,6 +5,7 @@
             type: 'GET',
             url: './php/server_dice.php',
             data: queryString,
+            cache: false,
             success: function(data){
                 // console.log(data); // debug
                 let obj = jQuery.parseJSON(data);
